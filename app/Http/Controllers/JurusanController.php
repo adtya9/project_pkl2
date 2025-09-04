@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 
 class JurusanController extends Controller
@@ -11,7 +12,8 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        //
+        $data = Jurusan::orderBy('nama_jurusan')->paginate(10);
+        return view('jurusan.index', compact('data'));
     }
 
     /**
@@ -19,7 +21,7 @@ class JurusanController extends Controller
      */
     public function create()
     {
-        //
+        return view('jurusan.create');
     }
 
     /**
@@ -27,7 +29,12 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_jurusan'=>'required'
+        ]);
+
+        Jurusan::create($request->all());
+        return redirect()->route('jurusan.index')->with('success','data berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +50,8 @@ class JurusanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Jurusan::findOrFail($id);
+        return view('jurusan.edit', compact('data'));
     }
 
     /**
@@ -51,7 +59,15 @@ class JurusanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_jurusan'=>'required'
+        ]);
+        
+        $data = Jurusan::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('jurusan.index')->with('success','data berhasil diubah');
+
+
     }
 
     /**
@@ -59,6 +75,8 @@ class JurusanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Jurusan::findOrFail($id);
+        $data->delete();
+        return redirect()->route('jurusan.index')->with('succes','data berhasil dihapus');
     }
 }
