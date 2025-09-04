@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembimbingsekolah;
+use App\Models\Sekolah;
 use Illuminate\Http\Request;
 
 class PembimbingsekolahController extends Controller
@@ -11,7 +13,8 @@ class PembimbingsekolahController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pembimbingsekolah::orderBy('nama_pembimbing_sekolah')->paginate(10);
+        return view('pembimbingsekolah.index', compact('data'));
     }
 
     /**
@@ -19,7 +22,8 @@ class PembimbingsekolahController extends Controller
      */
     public function create()
     {
-        //
+        $sekolah = Sekolah::all();
+        return view('pembimbingsekolah.index', compact('sekolah'));
     }
 
     /**
@@ -27,7 +31,14 @@ class PembimbingsekolahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_pembimbing_sekolah'=>'required',
+            'email'=>'required',
+            'nomor_telepon'=>'required'
+        ]);
+
+        Pembimbingsekolah::create($request->all());
+        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +54,8 @@ class PembimbingsekolahController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Pembimbingsekolah::findOrFail($id);
+        return view('pembimbingsekolah.index', compact('data'));
     }
 
     /**
@@ -51,7 +63,15 @@ class PembimbingsekolahController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $request->validate([
+            'nama_pembimbing_sekolah'=>'required',
+            'email'=>'required',
+            'nomor_telepon'=>'required'
+        ]);
+
+        $data = Pembimbingsekolah::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil diubah');
     }
 
     /**
@@ -59,6 +79,8 @@ class PembimbingsekolahController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Pembimbingsekolah::findOrFail($id);
+        $data->delete();
+        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil dihapus');
     }
 }

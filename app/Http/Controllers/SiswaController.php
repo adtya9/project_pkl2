@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
+use App\Models\Sekolah;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -11,7 +14,8 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        //
+        $data = Siswa::orderBy('nama_siswa')->paginate(10);
+        return view('siswa.index', compact('data'));
     }
 
     /**
@@ -19,7 +23,9 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        $jurusan = Jurusan::all();
+        $sekolah = Sekolah::all();
+        return view('siswa.create', compact('jurusan','sekolah'));
     }
 
     /**
@@ -27,7 +33,18 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nis'=>'required',
+            'nama'=>'required',
+            'email'=>'required',
+            'nomor_telepon'=>'required',
+            'jenis_kelamin'=>'required',
+            'id_jurusan'=>'required|exists:jurusan,id_jurusan',
+            'id_sekolah'=>'required|exists:sekolah,id_sekolah'
+        ]);
+
+        Siswa::create($request->all());
+        return redirect()->route('siswa.index')->with('success','data berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +60,8 @@ class SiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Siswa::findOrFail($id);
+        return view('siswa.index', compact('data'));
     }
 
     /**
@@ -51,7 +69,19 @@ class SiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nis'=>'required',
+            'nama'=>'required',
+            'email'=>'required',
+            'nomor_telepon'=>'required',
+            'jenis_kelamin'=>'required',
+            'id_jurusan'=>'required|exists:jurusan,id_jurusan',
+            'id_sekolah'=>'required|exists:sekolah,id_sekolah'
+        ]);
+
+        $data = Siswa::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('siswa.index')->with('success','data berhasil diubah');
     }
 
     /**
@@ -59,6 +89,9 @@ class SiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Siswa::findOrFail($id);
+        $data->delete();
+        return redirect()->route('siswa.index')->with('success','data berhasil dihapus');
+
     }
 }

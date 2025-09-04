@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bagianpkl extends Model
 {
-    //
+    protected $table =  "bagian";
+    protected $fillable = ['nama_bagian'];
 }
