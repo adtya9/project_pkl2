@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembimbingpkl;
 use Illuminate\Http\Request;
 
 class PembimbingpklController extends Controller
@@ -11,7 +12,8 @@ class PembimbingpklController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pembimbingpkl::orderBy('nama_pembimbing_pkl')->paginate(10);
+        return view('pembimbingpkl.index', compact('data'));
     }
 
     /**
@@ -19,7 +21,7 @@ class PembimbingpklController extends Controller
      */
     public function create()
     {
-        //
+        return view('pembimbingpkl.ceate');
     }
 
     /**
@@ -27,7 +29,14 @@ class PembimbingpklController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_pembimbing_pkl'=>'required',
+            'email'=>'required',
+            'nomor_telepon'=>'required'
+        ]);
+
+        Pembimbingpkl::create($request->all());
+        return redirect()->route('pembimbingpkl.index')->with('success','data berhasil disimpan');
     }
 
     /**
@@ -43,7 +52,8 @@ class PembimbingpklController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Pembimbingpkl::findOrFail($id);
+        return view('pembimbingpkl.edit', compact('data'));
     }
 
     /**
@@ -51,7 +61,15 @@ class PembimbingpklController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_pembimbing_pkl'=>'required',
+            'email'=>'required',
+            'nomor_telepon'=>'required'
+        ]);
+
+        $data = Pembimbingpkl::findOrFail($id);
+        $data->update($request->all());
+        return redirect()->route('pembimbingpkl.index')->with('success','data berhasil diubah');
     }
 
     /**
@@ -59,6 +77,8 @@ class PembimbingpklController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Pembimbingpkl::findOrFail($id);
+        $data->delete();
+        return redirect()->route('pembimbingpkl.destroy')->with('success','data berhasil dihapus');
     }
 }

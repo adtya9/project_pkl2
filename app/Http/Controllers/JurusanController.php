@@ -34,7 +34,7 @@ class JurusanController extends Controller
         ]);
 
         Jurusan::create($request->all());
-        return redirect()->route('jurusan.index')->with('success','data berhasil ditambahkan');
+        return redirect()->route('jurusan.index')->with('success','data berhasil disimpan');
     }
 
     /**

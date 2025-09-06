@@ -34,7 +34,7 @@ class BagianpklController extends Controller
         ]);
 
         Bagianpkl::create($request->all());
-        return redirect()->route('bagianpkl.index')->with('success','data berhasil ditambahkan');
+        return redirect()->route('bagianpkl.index')->with('success','data berhasil disimpan');
     }
 
     /**

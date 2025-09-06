@@ -44,7 +44,7 @@ class SiswaController extends Controller
         ]);
 
         Siswa::create($request->all());
-        return redirect()->route('siswa.index')->with('success','data berhasil ditambahkan');
+        return redirect()->route('siswa.index')->with('success','data berhasil disimpan');
     }
 
     /**

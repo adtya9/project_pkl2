@@ -39,7 +39,7 @@ class PembimbingsekolahController extends Controller
         ]);
 
         Pembimbingsekolah::create($request->all());
-        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil ditambahkan');
+        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil disimpan');
     }
 
     /**

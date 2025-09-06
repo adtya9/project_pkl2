@@ -36,7 +36,7 @@ class SekolahController extends Controller
         ]);
 
         Sekolah::create($request->all());
-        return redirect()->route('sekolah.index')->with('success','data berhasil ditambahkan');
+        return redirect()->route('sekolah.index')->with('success','data berhasil disimpan');
     }
 
     /**
