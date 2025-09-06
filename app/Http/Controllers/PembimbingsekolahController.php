@@ -34,7 +34,8 @@ class PembimbingsekolahController extends Controller
         $request->validate([
             'nama_pembimbing_sekolah'=>'required',
             'email'=>'required',
-            'nomor_telepon'=>'required'
+            'nomor_telepon'=>'required',
+            'id_sekolah'=>'required|exists:sekolah,id_sekolah'
         ]);
 
         Pembimbingsekolah::create($request->all());
@@ -66,7 +67,8 @@ class PembimbingsekolahController extends Controller
          $request->validate([
             'nama_pembimbing_sekolah'=>'required',
             'email'=>'required',
-            'nomor_telepon'=>'required'
+            'nomor_telepon'=>'required',
+            'id_sekolah'=>'required|exists:sekolah,id_sekolah'
         ]);
 
         $data = Pembimbingsekolah::findOrFail($id);
