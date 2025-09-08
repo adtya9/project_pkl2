@@ -34,7 +34,7 @@ class BagianpklController extends Controller
         ]);
 
         Bagianpkl::create($request->all());
-        return redirect()->route('bagianpkl.index')->with('success','data berhasil disimpan');
+        return redirect()->route('bagianpkl.index')->with('success','Data berhasil disimpan');
     }
 
     /**
@@ -65,7 +65,7 @@ class BagianpklController extends Controller
 
         $data = Bagianpkl::findOrFail($id);
         $data->update($request->all());
-        return redirect()->route('bagianpkl.index')->with('success','data berhasil diubah');
+        return redirect()->route('bagianpkl.index')->with('success','Data berhasil diubah');
 
 
     }
@@ -77,6 +77,6 @@ class BagianpklController extends Controller
     {
         $data = Bagianpkl::findOrFail($id);
         $data->delete();
-        return redirect()->route('bagianpkl.index')->with('success','data berhasil dihapus');
+        return redirect()->route('bagianpkl.index')->with('success','Data berhasil dihapus');
     }
 }

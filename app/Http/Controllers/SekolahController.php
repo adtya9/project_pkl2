@@ -36,7 +36,7 @@ class SekolahController extends Controller
         ]);
 
         Sekolah::create($request->all());
-        return redirect()->route('sekolah.index')->with('success','data berhasil disimpan');
+        return redirect()->route('sekolah.index')->with('success','Data berhasil disimpan');
     }
 
     /**
@@ -68,7 +68,7 @@ class SekolahController extends Controller
 
         $data = Sekolah::findOrFail($id);
         $data->update($request->all());
-        return redirect()->route('sekolah.index')->with('success','data berhasil diubah');
+        return redirect()->route('sekolah.index')->with('success','Data berhasil diubah');
 
     }
 
@@ -79,6 +79,6 @@ class SekolahController extends Controller
     {
         $data = Sekolah::findOrFail($id);
         $data->delete();
-        return redirect()->route('sekolah.index')->with('success','data berhasil dihapus');
+        return redirect()->route('sekolah.index')->with('success','Data berhasil dihapus');
     }
 }

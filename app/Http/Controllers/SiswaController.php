@@ -44,7 +44,7 @@ class SiswaController extends Controller
         ]);
 
         Siswa::create($request->all());
-        return redirect()->route('siswa.index')->with('success','data berhasil disimpan');
+        return redirect()->route('siswa.index')->with('success','Data berhasil disimpan');
     }
 
     /**
@@ -81,7 +81,7 @@ class SiswaController extends Controller
 
         $data = Siswa::findOrFail($id);
         $data->update($request->all());
-        return redirect()->route('siswa.index')->with('success','data berhasil diubah');
+        return redirect()->route('siswa.index')->with('success','Data berhasil diubah');
     }
 
     /**
@@ -91,7 +91,7 @@ class SiswaController extends Controller
     {
         $data = Siswa::findOrFail($id);
         $data->delete();
-        return redirect()->route('siswa.index')->with('success','data berhasil dihapus');
+        return redirect()->route('siswa.index')->with('success','Data berhasil dihapus');
 
     }
 }

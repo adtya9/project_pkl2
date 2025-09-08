@@ -58,7 +58,7 @@ class PenempatanpklController extends Controller
         }
         
         Penempatanpkl::create($request->all());
-        return redirect()->route('penempatanpkl.index')->with('success','data berhasil disimpan');
+        return redirect()->route('penempatanpkl.index')->with('success','Data berhasil disimpan');
         }
     
 
@@ -111,7 +111,7 @@ class PenempatanpklController extends Controller
         }
 
         $data->update($request->all());
-        return redirect()->route('penempatanpkl.index')->with('data berhasil diubah');
+        return redirect()->route('penempatanpkl.index')->with('Data berhasil diubah');
 
 
     }
@@ -123,6 +123,6 @@ class PenempatanpklController extends Controller
     {
         $data = Penempatanpkl::findOrFail($id);
         $data->delete();
-        return redirect()->route('penempatanpkl.index')->with('success','data berhasil dihapus');
+        return redirect()->route('penempatanpkl.index')->with('success','Data berhasil dihapus');
     }
 }

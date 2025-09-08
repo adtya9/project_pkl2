@@ -39,7 +39,7 @@ class PembimbingsekolahController extends Controller
         ]);
 
         Pembimbingsekolah::create($request->all());
-        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil disimpan');
+        return redirect()->route('pembimbingsekolah.index')->with('success','Data berhasil disimpan');
     }
 
     /**
@@ -73,7 +73,7 @@ class PembimbingsekolahController extends Controller
 
         $data = Pembimbingsekolah::findOrFail($id);
         $data->update($request->all());
-        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil diubah');
+        return redirect()->route('pembimbingsekolah.index')->with('success','Data berhasil diubah');
     }
 
     /**
@@ -83,6 +83,6 @@ class PembimbingsekolahController extends Controller
     {
         $data = Pembimbingsekolah::findOrFail($id);
         $data->delete();
-        return redirect()->route('pembimbingsekolah.index')->with('success','data berhasil dihapus');
+        return redirect()->route('pembimbingsekolah.index')->with('success','Data berhasil dihapus');
     }
 }

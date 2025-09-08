@@ -36,7 +36,7 @@ class PembimbingpklController extends Controller
         ]);
 
         Pembimbingpkl::create($request->all());
-        return redirect()->route('pembimbingpkl.index')->with('success','data berhasil disimpan');
+        return redirect()->route('pembimbingpkl.index')->with('success','Data berhasil disimpan');
     }
 
     /**
@@ -69,7 +69,7 @@ class PembimbingpklController extends Controller
 
         $data = Pembimbingpkl::findOrFail($id);
         $data->update($request->all());
-        return redirect()->route('pembimbingpkl.index')->with('success','data berhasil diubah');
+        return redirect()->route('pembimbingpkl.index')->with('success','Data berhasil diubah');
     }
 
     /**
@@ -79,6 +79,6 @@ class PembimbingpklController extends Controller
     {
         $data = Pembimbingpkl::findOrFail($id);
         $data->delete();
-        return redirect()->route('pembimbingpkl.destroy')->with('success','data berhasil dihapus');
+        return redirect()->route('pembimbingpkl.destroy')->with('success','Data berhasil dihapus');
     }
 }
