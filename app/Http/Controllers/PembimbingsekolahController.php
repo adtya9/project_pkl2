@@ -22,8 +22,9 @@ class PembimbingsekolahController extends Controller
      */
     public function create()
     {
+    
         $sekolah = Sekolah::all();
-        return view('pembimbingsekolah.index', compact('sekolah'));
+        return view('pembimbingsekolah.create', compact('sekolah'));
     }
 
     /**
@@ -56,7 +57,8 @@ class PembimbingsekolahController extends Controller
     public function edit(string $id)
     {
         $data = Pembimbingsekolah::findOrFail($id);
-        return view('pembimbingsekolah.index', compact('data'));
+        $sekolah = Sekolah::all();
+        return view('pembimbingsekolah.edit', compact('data','sekolah'));
     }
 
     /**

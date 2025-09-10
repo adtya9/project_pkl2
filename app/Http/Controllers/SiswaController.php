@@ -14,7 +14,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $data = Siswa::orderBy('nama_siswa')->paginate(10);
+        $data = Siswa::orderBy('nama')->paginate(10);
         return view('siswa.index', compact('data'));
     }
 
@@ -61,7 +61,9 @@ class SiswaController extends Controller
     public function edit(string $id)
     {
         $data = Siswa::findOrFail($id);
-        return view('siswa.index', compact('data'));
+        $jurusan = Jurusan::all();
+        $sekolah = Sekolah::all();
+        return view('siswa.edit', compact('data','jurusan','sekolah'));
     }
 
     /**

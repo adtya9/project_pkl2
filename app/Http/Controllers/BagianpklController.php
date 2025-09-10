@@ -51,7 +51,7 @@ class BagianpklController extends Controller
     public function edit(string $id)
     {
         $data = Bagianpkl::findOrFail($id);
-        return view('bagianpkl', compact('data'));
+        return view('bagianpkl.edit', compact('data'));
     }
 
     /**

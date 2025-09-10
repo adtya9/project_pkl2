@@ -6,7 +6,7 @@
         <h1>Data Jurusan</h1>
 
         @if(session('success'))
-        <p style = "color:blue">{{session('success')}}</p>
+        <p style = "color:blue;">{{session('success')}}</p>
         @endif
 
         <a href = "{{ route('jurusan.create') }}">Tambah Data</a>

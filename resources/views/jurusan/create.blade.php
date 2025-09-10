@@ -1,6 +1,6 @@
 <html>
     <head>
-        <tittle>tambah data jurusan</tittle>
+        <title>tambah data jurusan</title>
     </head>
     <body>
         <h1>Tambah data</h1>

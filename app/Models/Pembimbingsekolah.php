@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Pembimbingsekolah extends Model
 {
     protected $table = "pembimbing_sekolah";
-    protected $fillable = ['nama_pembimbing_sekolah','email','nomor_telepon'];
+    protected $primaryKey = "id_pembimbing_sekolah";
+    public $timestamps = false;
+    protected $fillable = ['nama_pembimbing_sekolah','email','nomor_telepon','id_sekolah'];
 
     public function sekolah() {
-        return $this->belongsTo(Sekolah::class);
+        return $this->belongsTo(Sekolah::class,'id_sekolah');
         
     }
 }
