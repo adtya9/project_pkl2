@@ -40,7 +40,7 @@
                     onsubmit = "return confirm('apakah anda yakin hapus data ini?')">
                     @csrf 
                     @method('DELETE')
-                    <button type = "submit">Hapus</button>
+                    <button type = "submit">Hapus</button>  
                 </form>
                 </td>
             </tr>

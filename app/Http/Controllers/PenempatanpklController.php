@@ -26,11 +26,11 @@ class PenempatanpklController extends Controller
      */
     public function create()
     {
-        $siswa = Siswa::orderBy('nama_siswa')->get();
+        $siswa = Siswa::orderBy('nama')->get();
         $bagianpkl = Bagianpkl::orderBy('nama_bagian')->get();
         $pembimbingsekolah = Pembimbingsekolah::orderBy('nama_pembimbing_sekolah')->get();
         $pembimbingpkl = Pembimbingpkl::orderBy('nama_pembimbing_pkl')->get();
-        return view('penempatanpkl.index', compact('siswa','bagianpkl','pembimbingsekolah','pembimbingpkl'));
+        return view('penempatanpkl.create', compact('siswa','bagianpkl','pembimbingsekolah','pembimbingpkl'));
     }
 
     /**

@@ -21,7 +21,7 @@ class PembimbingpklController extends Controller
      */
     public function create()
     {
-        return view('pembimbingpkl.ceate');
+        return view('pembimbingpkl.create');
     }
 
     /**
@@ -79,6 +79,6 @@ class PembimbingpklController extends Controller
     {
         $data = Pembimbingpkl::findOrFail($id);
         $data->delete();
-        return redirect()->route('pembimbingpkl.destroy')->with('success','Data berhasil dihapus');
+        return redirect()->route('pembimbingpkl.index')->with('success','Data berhasil dihapus');
     }
 }
