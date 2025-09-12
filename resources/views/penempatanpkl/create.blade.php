@@ -45,7 +45,7 @@
       Tanggal selesai : <input type = "date" name = "tanggal_selesai"><br>  
 
       <button type = "submit">Simpan</button>
-      <a href = "{{ route('pembimbingpkl.index') }}">Kembali</a>
+      <a href = "{{ route('penempatanpkl.index') }}">Kembali</a>
     </form>
   </body>
 </html>

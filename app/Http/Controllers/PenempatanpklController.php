@@ -16,7 +16,7 @@ class PenempatanpklController extends Controller
      */
     public function index()
     {
-        $penempatan = Penempatanpkl::with(['id_siswa','id_bagian','id_pembimbing_sekolah','id_pembimbing_pkl'])
+        $penempatan = Penempatanpkl::with(['siswa','bagianpkl','pembimbing_sekolah','pembimbing_pkl'])
                       ->latest('tanggal_mulai')->paginate(10);
         return view('penempatanpkl.index', compact('penempatan'));              
     }
@@ -26,7 +26,7 @@ class PenempatanpklController extends Controller
      */
     public function create()
     {
-        $siswa = Siswa::orderBy('nama')->get();
+        $siswa = Siswa::orderBy('siswa')->get();
         $bagianpkl = Bagianpkl::orderBy('nama_bagian')->get();
         $pembimbingsekolah = Pembimbingsekolah::orderBy('nama_pembimbing_sekolah')->get();
         $pembimbingpkl = Pembimbingpkl::orderBy('nama_pembimbing_pkl')->get();
@@ -47,7 +47,7 @@ class PenempatanpklController extends Controller
             'tanggal_selesai'=>'required|after_or_equal:tanggal_mulai'
         ]);
 
-        $nabrak = Penempatanpkl::where(['id_siswa',$request->id_siswa])
+        $nabrak = Penempatanpkl::where('id_siswa',$request->id_siswa)
         ->where(function($q) use($request) {
             $q->whereBetween('tanggal_mulai', [$request->tanggal_mulai,$request->tanggal_selesai])
               ->whereBetween('tanggal_selesai', [$request->tanggal_mulai,$request->tanggal_selesai]);
