@@ -5,16 +5,16 @@
     <body>
         <h1>Edit Data</h1>
 
-        <form action = "{{ route('penempatanpkl.store',$data->id_penempatan) }}" method = "POST">
-            @csrf
-            @method('DELETE')
+        <form action = "{{ route('penempatanpkl.update', $data->id_penempatan) }}" method="POST">
+            @csrf 
+            @method('PUT')
             
             Nama siswa :
             <select name = "id_siswa">
                 <option value = ""></option>
                 @foreach($siswa as $s)
                 <option value = "{{$s->id_siswa}}"{{$data->id_siswa == $s->id_siswa ? 'selected' : ''}}>
-                    {{$s->nama_siswa}}</option>
+                    {{$s->nama}}</option>
                     @endforeach
             </select><br>
 
@@ -22,8 +22,8 @@
             <select name = "id_bagian">
                 <option value = ""></option>
                 @foreach($bagianpkl as $b)
-                <option value = "{{$s->id_bagian}}"{{$data->id_bagian == $b->id_bagian ? 'selected' : ''}}>
-                    {{$b->id_bagian}}</option>
+                <option value = "{{$b->id_bagian}}"{{$data->id_bagian == $b->id_bagian ? 'selected' : ''}}>
+                    {{$b->nama_bagian}}</option>
                     @endforeach
             </select><br>
 
@@ -41,15 +41,15 @@
                 <option value = ""></option>
                 @foreach($pembimbingpkl as $pp)
                 <option value = "{{$pp->id_pembimbing_pkl}}"{{$data->id_pembimbing_pkl == $pp->id_pembimbing_pkl ? 'selected' : ''}}>
-                    {{$ps->nama_pembimbing_pkl}}</option>
+                    {{$pp->nama_pembimbing_pkl}}</option>
                     @endforeach
             </select><br> 
 
-            <input type = "date" name = "tanggal_mulai"><br>
-            <input type = "date" name = "tanggal_selesai"><br>
+            <input type = "date" name = "tanggal_mulai" value = "{{$data->tanggal_mulai}}"><br>
+            <input type = "date" name = "tanggal_selesai" value = "{{$data->tanggal_selesai}}"><br>
 
             <button type = "submit">Simpan</button>
-            <a href = "{{ route('penempatanpkl.index') }}">Kembali</a>
+            <a href = "{{ route('penempatanpkl.index') }}">Kembali</a>  
 
         </form>
     </body>

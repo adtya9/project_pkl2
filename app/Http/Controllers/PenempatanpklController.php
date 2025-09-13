@@ -26,7 +26,7 @@ class PenempatanpklController extends Controller
      */
     public function create()
     {
-        $siswa = Siswa::orderBy('siswa')->get();
+        $siswa = Siswa::orderBy('nama')->get();
         $bagianpkl = Bagianpkl::orderBy('nama_bagian')->get();
         $pembimbingsekolah = Pembimbingsekolah::orderBy('nama_pembimbing_sekolah')->get();
         $pembimbingpkl = Pembimbingpkl::orderBy('nama_pembimbing_pkl')->get();
@@ -100,7 +100,7 @@ class PenempatanpklController extends Controller
 
         $data = Penempatanpkl::findOrFail($id);
 
-        $nabrak = Penempatanpkl::where(['id_siswa',$request->id_siswa])
+        $nabrak = Penempatanpkl::where('id_siswa',$request->id_siswa)
         ->where(function($q) use($request) {
             $q->whereBetween('tanggal_mulai', [$request->tanggal_mulai,$request->tanggal_selesai])
               ->whereBetween('tanggal_selesai', [$request->tanggal_mulai,$request->tanggal_selesai]);
@@ -111,7 +111,7 @@ class PenempatanpklController extends Controller
         }
 
         $data->update($request->all());
-        return redirect()->route('penempatanpkl.index')->with('Data berhasil diubah');
+        return redirect()->route('penempatanpkl.index')->with('success','Data berhasil diubah');
 
 
     }

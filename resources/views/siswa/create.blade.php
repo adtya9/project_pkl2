@@ -12,13 +12,15 @@
             Email : <input type = "text" name = "email"><br>
             Nomor Telepon : <input type = "text" name = "nomor_telepon"><br>
             Jenis Kelamin : <input type = "text" name = "jenis_kelamin"><br>
-
+             
+            Nama sekolah : 
             <select name = "id_sekolah">
                 @foreach($sekolah as $s)
                 <option value = "{{$s->id_sekolah}}">{{$s->nama_sekolah}}</option>
                 @endforeach
             </select><br>
-
+            
+            Jurusan apa :
             <select name = "id_jurusan">
                 @foreach($jurusan as $j)
                 <option value = "{{$j->id_jurusan}}">{{$j->nama_jurusan}}</option>

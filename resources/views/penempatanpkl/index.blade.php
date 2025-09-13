@@ -18,7 +18,7 @@
                 <th>Nama Bagian</th>
                 <th>Nama Pembimbing Sekolah</th>
                 <th>Nama Pembimbing PKL</th>
-                <th>Tanggal Mulai</th>
+                <th>Tanggal Mulai</th>  
                 <th>Tanggal Selesai</th>
                 <th>Aksi</th>
             </tr>
