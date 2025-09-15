@@ -15,7 +15,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Siswa</th>
-                <th>Nama Bagian</th>
+                <th>Nama Bagian Pkl</th>
                 <th>Nama Pembimbing Sekolah</th>
                 <th>Nama Pembimbing PKL</th>
                 <th>Tanggal Mulai</th>  

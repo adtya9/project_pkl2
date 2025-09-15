@@ -12,7 +12,7 @@ class PembimbingpklController extends Controller
      */
     public function index()
     {
-        $data = Pembimbingpkl::orderBy('nama_pembimbing_pkl')->paginate(10);
+        $data = Pembimbingpkl::latest('id_pembimbing_pkl')->paginate(10);
         return view('pembimbingpkl.index', compact('data'));
     }
 

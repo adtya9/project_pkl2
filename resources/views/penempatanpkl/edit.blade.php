@@ -10,28 +10,32 @@
             @method('PUT')
             
             Nama siswa :
-            <select name = "id_siswa">
+            <select name = "id_siswa"disabled>
                 <option value = ""></option>
                 @foreach($siswa as $s)
-                <option value = "{{$s->id_siswa}}"{{$data->id_siswa == $s->id_siswa ? 'selected' : ''}}>
+                <option value = "{{$s->id_siswa}}" {{$data->id_siswa == $s->id_siswa ? 'selected' : ''}}>
                     {{$s->nama}}</option>
                     @endforeach
-            </select><br>
+            </select>
+            <small style="color:red;">Nama siswa tidak bisa diubah!</small>
+            <br>
 
-            Nama bagian : 
-            <select name = "id_bagian">
+            Nama bagian pkl : 
+            <select name = "id_bagian" disabled>
                 <option value = ""></option>
                 @foreach($bagianpkl as $b)
-                <option value = "{{$b->id_bagian}}"{{$data->id_bagian == $b->id_bagian ? 'selected' : ''}}>
+                <option value = "{{$b->id_bagian}}" {{$data->id_bagian == $b->id_bagian ? 'selected' : ''}}>
                     {{$b->nama_bagian}}</option>
                     @endforeach
-            </select><br>
+            </select>
+            <small style = "color:red;">Nama bagian pkl tidak bisa diubah!</small>
+            <br>
 
             Nama pembimbing sekolah : 
             <select name = "id_pembimbing_sekolah">
             <option value = ""></option>
             @foreach($pembimbingsekolah as $ps)
-            <option value = "{{$ps->id_pembimbing_sekolah}}"{{$data->id_pembimbing_sekolah == $ps->id_pembimbing_sekolah ? 'selected' : ''}}>
+            <option value = "{{$ps->id_pembimbing_sekolah}}" {{$data->id_pembimbing_sekolah == $ps->id_pembimbing_sekolah ? 'selected' : ''}}>
                 {{$ps->nama_pembimbing_sekolah}}</option>
                 @endforeach
             </select><br>
@@ -40,7 +44,7 @@
             <select name = "id_pembimbing_pkl">
                 <option value = ""></option>
                 @foreach($pembimbingpkl as $pp)
-                <option value = "{{$pp->id_pembimbing_pkl}}"{{$data->id_pembimbing_pkl == $pp->id_pembimbing_pkl ? 'selected' : ''}}>
+                <option value = "{{$pp->id_pembimbing_pkl}}" {{$data->id_pembimbing_pkl == $pp->id_pembimbing_pkl ? 'selected' : ''}}>
                     {{$pp->nama_pembimbing_pkl}}</option>
                     @endforeach
             </select><br> 

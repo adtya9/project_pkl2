@@ -13,7 +13,7 @@ class PembimbingsekolahController extends Controller
      */
     public function index()
     {
-        $data = Pembimbingsekolah::orderBy('nama_pembimbing_sekolah')->paginate(10);
+        $data = Pembimbingsekolah::latest('id_pembimbing_sekolah')->paginate(10);
         return view('pembimbingsekolah.index', compact('data'));
     }
 

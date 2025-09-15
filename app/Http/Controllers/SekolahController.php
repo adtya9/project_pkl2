@@ -12,7 +12,7 @@ class SekolahController extends Controller
      */
     public function index()
     {
-        $data = Sekolah::orderBy('nama_sekolah')->paginate(10);
+        $data = Sekolah::latest('id_sekolah')->paginate(10);
         return view('sekolah.index', compact('data'));
 
     }

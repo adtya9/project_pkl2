@@ -26,10 +26,10 @@ class PenempatanpklController extends Controller
      */
     public function create()
     {
-        $siswa = Siswa::orderBy('nama')->get();
-        $bagianpkl = Bagianpkl::orderBy('nama_bagian')->get();
-        $pembimbingsekolah = Pembimbingsekolah::orderBy('nama_pembimbing_sekolah')->get();
-        $pembimbingpkl = Pembimbingpkl::orderBy('nama_pembimbing_pkl')->get();
+        $siswa = Siswa::latest('id_siswa')->get();
+        $bagianpkl = Bagianpkl::latest('id_bagian')->get();
+        $pembimbingsekolah = Pembimbingsekolah::latest('id_pembimbing_sekolah')->get();
+        $pembimbingpkl = Pembimbingpkl::latest('id_pembimbing_pkl')->get();
         return view('penempatanpkl.create', compact('siswa','bagianpkl','pembimbingsekolah','pembimbingpkl'));
     }
 
@@ -89,32 +89,46 @@ class PenempatanpklController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'id_siswa'=>'required|exists:siswa,id_siswa',
-            'id_bagian'=>'required|exists:bagian,id_bagian',
-            'id_pembimbing_sekolah'=>'required|exists:pembimbing_sekolah,id_pembimbing_sekolah',
-            'id_pembimbing_pkl'=>'required|exists:pembimbing_pkl,id_pembimbing_pkl',
-            'tanggal_mulai'=>'required',
-            'tanggal_selesai'=>'required|after_or_equal:tanggal_mulai'
-        ]);
+    $data = Penempatanpkl::findOrFail($id);
 
-        $data = Penempatanpkl::findOrFail($id);
-
-        $nabrak = Penempatanpkl::where('id_siswa',$request->id_siswa)
-        ->where(function($q) use($request) {
-            $q->whereBetween('tanggal_mulai', [$request->tanggal_mulai,$request->tanggal_selesai])
-              ->whereBetween('tanggal_selesai', [$request->tanggal_mulai,$request->tanggal_selesai]);
-        })->exists();
-
-        if($nabrak) {
-            return back()->withInput()->withErrors(['id_siswa'=>'tanggal pkl siswa ini bentrok dengan jadwal yang sudah ada']);
-        }
-
-        $data->update($request->all());
-        return redirect()->route('penempatanpkl.index')->with('success','Data berhasil diubah');
-
-
+    
+    if ($request->id_siswa != $data->id_siswa || $request->id_bagian != $data->id_bagian) {
+        return back()->withErrors(['error' => 'Nama siswa dan bagian PKL tidak boleh diubah.']);
     }
+
+    
+    $request->validate([
+        'id_pembimbing_sekolah' => 'required|exists:pembimbing_sekolah,id_pembimbing_sekolah',
+        'id_pembimbing_pkl' => 'required|exists:pembimbing_pkl,id_pembimbing_pkl',
+        'tanggal_mulai' => 'required|date',
+        'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai'
+    ]);
+
+    
+    if ($request->tanggal_mulai != $data->tanggal_mulai || $request->tanggal_selesai != $data->tanggal_selesai) {
+        $nabrak = Penempatanpkl::where('id_siswa', $request->id_siswa)
+            ->where('id_penempatan', '!=', $id) 
+            ->where(function($q) use($request) {
+                $q->whereBetween('tanggal_mulai', [$request->tanggal_mulai, $request->tanggal_selesai])
+                  ->orWhereBetween('tanggal_selesai', [$request->tanggal_mulai, $request->tanggal_selesai]);
+            })->exists();
+
+        if ($nabrak) {
+            return back()->withErrors(['tanggal_mulai' => 'Tanggal PKL siswa ini bentrok dengan jadwal yang sudah ada']);
+        }
+    }
+
+    // Update data
+    $data->update($request->only([
+        'id_pembimbing_sekolah',
+        'id_pembimbing_pkl',
+        'tanggal_mulai',
+        'tanggal_selesai'
+    ]));
+
+    return redirect()->route('penempatanpkl.index')->with('success', 'Data berhasil diubah');
+}
+
 
     /**
      * Remove the specified resource from storage.

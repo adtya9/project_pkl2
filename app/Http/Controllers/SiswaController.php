@@ -14,7 +14,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $data = Siswa::orderBy('nama')->paginate(10);
+        $data = Siswa::latest('id_siswa')->paginate(10);
         return view('siswa.index', compact('data'));
     }
 

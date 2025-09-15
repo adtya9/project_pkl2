@@ -12,7 +12,7 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        $data = Jurusan::orderBy('nama_jurusan')->paginate(10);
+        $data = Jurusan::latest('id_jurusan')->paginate(10);
         return view('jurusan.index', compact('data'));
     }
 
