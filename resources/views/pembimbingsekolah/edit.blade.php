@@ -14,7 +14,7 @@
 
             <select name = "id_sekolah">
                 @foreach($sekolah as $l)
-                <option value = "{{$l->id_sekolah}}"{{$data->id_sekolah == $l->id_sekolah ? 'selected' : ''}}>
+                <option value = "{{$l->id_sekolah}}" {{$data->id_sekolah == $l->id_sekolah ? 'selected' : ''}}>
                     {{$l->nama_sekolah}}</option>
                     @endforeach
             </select><br>

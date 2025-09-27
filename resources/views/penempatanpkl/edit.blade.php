@@ -1,60 +1,102 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>edit data penempatan pkl</title>
-    </head>
-    <body>
-        <h1>Edit Data</h1>
+<head>
+    <title>Edit Data Penempatan PKL</title>
+</head>
+<body>
+    <h1>Edit Data</h1>
 
-        <form action = "{{ route('penempatanpkl.update', $data->id_penempatan) }}" method="POST">
-            @csrf 
-            @method('PUT')
-            
-            Nama siswa :
-            <select name = "id_siswa"disabled>
-                <option value = ""></option>
-                @foreach($siswa as $s)
-                <option value = "{{$s->id_siswa}}" {{$data->id_siswa == $s->id_siswa ? 'selected' : ''}}>
-                    {{$s->nama}}</option>
-                    @endforeach
-            </select>
-            <small style="color:red;">Nama siswa tidak bisa diubah!</small>
-            <br>
+    <form action="{{ route('penempatanpkl.update', $data->id_penempatan) }}" method="POST">
+        @csrf 
+        @method('PUT')
 
-            Nama bagian pkl : 
-            <select name = "id_bagian" disabled>
-                <option value = ""></option>
-                @foreach($bagianpkl as $b)
-                <option value = "{{$b->id_bagian}}" {{$data->id_bagian == $b->id_bagian ? 'selected' : ''}}>
-                    {{$b->nama_bagian}}</option>
-                    @endforeach
-            </select>
-            <small style = "color:red;">Nama bagian pkl tidak bisa diubah!</small>
-            <br>
+        <table>
+            <tr>
+                <td>Nama Siswa :</td>
+                <td>
+                    <select disabled>
+                        @foreach($siswa as $s)
+                            <option {{ $data->id_siswa == $s->id_siswa ? 'selected' : '' }}>
+                                {{ $s->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="id_siswa" value="{{ $data->id_siswa }}">
+                </td>
+            </tr>
 
-            Nama pembimbing sekolah : 
-            <select name = "id_pembimbing_sekolah">
-            <option value = ""></option>
-            @foreach($pembimbingsekolah as $ps)
-            <option value = "{{$ps->id_pembimbing_sekolah}}" {{$data->id_pembimbing_sekolah == $ps->id_pembimbing_sekolah ? 'selected' : ''}}>
-                {{$ps->nama_pembimbing_sekolah}}</option>
-                @endforeach
-            </select><br>
+            <tr>
+                <td>Nama Sekolah :</td>
+                <td>
+                    <select disabled>
+                        @foreach($sekolah as $s)
+                        <option {{ $data->id_sekolah == $s->id_sekolah ? 'selected' : ''}}>
+                            {{$s->nama_sekolah}}</option>
+                            @endforeach
+                    </select>
+                    <input type="hidden" name = "id_sekolah" value = "{{ $data->id_sekolah }}">
+                </td>
+            </tr>
 
-            Nama pembimbing pkl :
-            <select name = "id_pembimbing_pkl">
-                <option value = ""></option>
-                @foreach($pembimbingpkl as $pp)
-                <option value = "{{$pp->id_pembimbing_pkl}}" {{$data->id_pembimbing_pkl == $pp->id_pembimbing_pkl ? 'selected' : ''}}>
-                    {{$pp->nama_pembimbing_pkl}}</option>
-                    @endforeach
-            </select><br> 
+            <tr>
+                <td>Nama Bagian PKL :</td>
+                <td>
+                    <select disabled>
+                        @foreach($bagianpkl as $b)
+                            <option {{ $data->id_bagian == $b->id_bagian ? 'selected' : '' }}>
+                                {{ $b->nama_bagian }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="id_bagian" value="{{ $data->id_bagian }}">
+                </td>
+            </tr>
 
-            <input type = "date" name = "tanggal_mulai" value = "{{$data->tanggal_mulai}}"><br>
-            <input type = "date" name = "tanggal_selesai" value = "{{$data->tanggal_selesai}}"><br>
+            <tr>
+                <td>Pembimbing Sekolah :</td>
+                <td>
+                    <select name="id_pembimbing_sekolah">
+                        <option value=""></option>
+                        @foreach($pembimbingsekolah as $ps)
+                            <option value="{{ $ps->id_pembimbing_sekolah }}" {{ $data->id_pembimbing_sekolah == $ps->id_pembimbing_sekolah ? 'selected' : '' }}>
+                                {{ $ps->nama_pembimbing_sekolah }}
+                            </option>
+                        @endforeach
+                    </select>
+                </td>
+            </tr>
 
-            <button type = "submit">Simpan</button>
-            <a href = "{{ route('penempatanpkl.index') }}">Kembali</a>  
+            <tr>
+                <td>Pembimbing PKL :</td>
+                <td>
+                    <select name="id_pembimbing_pkl">
+                        <option value=""></option>
+                        @foreach($pembimbingpkl as $pp)
+                            <option value="{{ $pp->id_pembimbing_pkl }}" {{ $data->id_pembimbing_pkl == $pp->id_pembimbing_pkl ? 'selected' : '' }}>
+                                {{ $pp->nama_pembimbing_pkl }}
+                            </option>
+                        @endforeach
+                    </select>
+                </td>
+            </tr>
 
-        </form>
-    </body>
+            <tr>
+                <td>Tanggal Mulai :</td>
+                <td><input type="date" name="tanggal_mulai" value="{{ $data->tanggal_mulai }}"></td>
+            </tr>
+
+            <tr>
+                <td>Tanggal Selesai :</td>
+                <td><input type="date" name="tanggal_selesai" value="{{ $data->tanggal_selesai }}"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <a href="{{ route('penempatanpkl.index') }}">Kembali</a>
+                    <button type="submit">Simpan</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
 </html>

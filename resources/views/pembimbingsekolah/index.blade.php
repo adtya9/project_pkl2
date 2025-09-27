@@ -9,6 +9,10 @@
         <p style = "color:blue;">{{session('success')}}</p>
         @endif
 
+        @if(session('error'))
+        <p style = "color:red;">{{session('error')}}</p>
+        @endif
+
         <a href = "{{ route('pembimbingsekolah.create') }}">Tambah Data</a>
 
         <table border = "1" cellpadding = "5">

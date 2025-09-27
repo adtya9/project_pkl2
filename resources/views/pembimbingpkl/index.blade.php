@@ -8,6 +8,10 @@
         @if(session('success'))
         <p style = "color:blue;">{{session('success')}}</p>
         @endif
+        
+        @if(session('error'))
+        <p style = "color:red;">{{session('error')}}</p>
+        @endif
 
         <a href = "{{ route('pembimbingpkl.create') }}">Tambah Data</a>
 

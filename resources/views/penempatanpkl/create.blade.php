@@ -8,11 +8,19 @@
     <form action = "{{ route('penempatanpkl.store') }}" method = "POST">
       @csrf
 
-      Nama siswa : 
+      Nama Siswa : 
       <select name = "id_siswa">
         <option value = ""></option>
         @foreach($siswa as $s)
         <option value = "{{$s->id_siswa}}">{{$s->nama}}</option>
+        @endforeach
+      </select><br>
+
+      Nama Sekolah :
+      <select name = "id_sekolah">
+        <option value=""></option>
+        @foreach($sekolah as $s)
+        <option value="{{$s->id_sekolah}}">{{$s->nama_sekolah}}</option>
         @endforeach
       </select><br>
 

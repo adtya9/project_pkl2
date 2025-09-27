@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bagianpkl;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class BagianpklController extends Controller
@@ -75,8 +77,15 @@ class BagianpklController extends Controller
      */
     public function destroy(string $id)
     {
+        try {
         $data = Bagianpkl::findOrFail($id);
         $data->delete();
         return redirect()->route('bagianpkl.index')->with('success','Data berhasil dihapus');
+
+        } catch (QueryException $e) {
+            if($e->getCode() == "23000") {
+                return redirect()->route('bagianpkl.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di penempatan PKL');
+            }
+        }
     }
 }

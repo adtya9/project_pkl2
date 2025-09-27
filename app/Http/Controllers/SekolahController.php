@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sekolah;
+use GuzzleHttp\Psr7\Query;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class SekolahController extends Controller
@@ -77,8 +79,16 @@ class SekolahController extends Controller
      */
     public function destroy(string $id)
     {
+        try {
         $data = Sekolah::findOrFail($id);
         $data->delete();
         return redirect()->route('sekolah.index')->with('success','Data berhasil dihapus');
+
+        } catch (QueryException $e) {
+            if($e->getCode() == "23000") {
+                return redirect()->route('sekolah.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di penempatan PKL');
+
+            }
+        }
     }
 }
