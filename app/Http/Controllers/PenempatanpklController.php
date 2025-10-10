@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bagianpkl;
+use App\Models\Jurusan;
 use App\Models\Pembimbingpkl;
 use App\Models\Pembimbingsekolah;
 use App\Models\Penempatanpkl;
@@ -17,7 +18,7 @@ class PenempatanpklController extends Controller
      */
     public function index()
     {
-        $penempatan = Penempatanpkl::with(['siswa','sekolah','bagianpkl','pembimbing_sekolah','pembimbing_pkl'])
+        $penempatan = Penempatanpkl::with(['siswa','sekolah','jurusan','bagianpkl','pembimbing_sekolah','pembimbing_pkl'])
                       ->latest('tanggal_mulai')->paginate(10);
         return view('penempatanpkl.index', compact('penempatan'));              
     }
@@ -29,10 +30,11 @@ class PenempatanpklController extends Controller
     {
         $siswa = Siswa::latest('id_siswa')->get();
         $sekolah = Sekolah::latest('id_sekolah')->get();
+        $jurusan = Jurusan::latest('id_jurusan')->get();
         $bagianpkl = Bagianpkl::latest('id_bagian')->get();
         $pembimbingsekolah = Pembimbingsekolah::latest('id_pembimbing_sekolah')->get();
         $pembimbingpkl = Pembimbingpkl::latest('id_pembimbing_pkl')->get();
-        return view('penempatanpkl.create', compact('siswa','sekolah','bagianpkl','pembimbingsekolah','pembimbingpkl'));
+        return view('penempatanpkl.create', compact('siswa','sekolah','jurusan','bagianpkl','pembimbingsekolah','pembimbingpkl'));
     }
 
     /**
@@ -43,6 +45,7 @@ class PenempatanpklController extends Controller
         $request->validate([
             'id_siswa'=>'required|exists:siswa,id_siswa',
             'id_sekolah'=>'required|exists:sekolah,id_sekolah',
+            'id_jurusan'=>'required|exists:jurusan,id_jurusan',
             'id_bagian'=>'required|exists:bagian,id_bagian',
             'id_pembimbing_sekolah'=>'required|exists:pembimbing_sekolah,id_pembimbing_sekolah',
             'id_pembimbing_pkl'=>'required|exists:pembimbing_pkl,id_pembimbing_pkl',
@@ -81,11 +84,12 @@ class PenempatanpklController extends Controller
         $data = Penempatanpkl::findOrFail($id);
         $siswa = Siswa::all();
         $sekolah = Sekolah::all();
+        $jurusan = Jurusan::all();
         $bagianpkl = Bagianpkl::all();
         $pembimbingsekolah = Pembimbingsekolah::all();
         $pembimbingpkl = Pembimbingpkl::all();
 
-        return view('penempatanpkl.edit', compact('data','siswa','sekolah','bagianpkl','pembimbingsekolah','pembimbingpkl'));
+        return view('penempatanpkl.edit', compact('data','siswa','sekolah','jurusan','bagianpkl','pembimbingsekolah','pembimbingpkl'));
     }
 
     /**
@@ -99,6 +103,7 @@ class PenempatanpklController extends Controller
     $request->validate([
         'id_siswa' => 'required|exists:siswa,id_siswa',
         'id_sekolah'=>'required|exists:sekolah,id_sekolah',
+        'id_jurusan'=>'required|exists:jurusan,id_jurusan',
         'id_bagian' => 'required|exists:bagian,id_bagian',
         'id_pembimbing_sekolah' => 'required|exists:pembimbing_sekolah,id_pembimbing_sekolah',
         'id_pembimbing_pkl' => 'required|exists:pembimbing_pkl,id_pembimbing_pkl',
@@ -106,11 +111,7 @@ class PenempatanpklController extends Controller
         'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai'
     ]);
 
-    
-    if ($request->id_siswa != $data->id_siswa || $request->id_bagian != $data->id_bagian || $request->id_sekolah != $data->id_sekolah) {
-        return back()->withErrors(['error' => 'Nama siswa dan bagian PKL tidak boleh diubah.']);
-    }
-    
+  
     if ($request->tanggal_mulai != $data->tanggal_mulai || $request->tanggal_selesai != $data->tanggal_selesai) {
         $nabrak = Penempatanpkl::where('id_siswa', $request->id_siswa)
             ->where('id_penempatan', '!=', $id)
@@ -124,14 +125,8 @@ class PenempatanpklController extends Controller
         }
     }
 
-    
-    $data->update([
-        'id_pembimbing_sekolah' => $request->id_pembimbing_sekolah,
-        'id_pembimbing_pkl' => $request->id_pembimbing_pkl,
-        'tanggal_mulai' => $request->tanggal_mulai,
-        'tanggal_selesai' => $request->tanggal_selesai,
-    ]);
-
+     $data->update($request->all());
+     
     return redirect()->route('penempatanpkl.index')->with('success', 'Data berhasil diubah');
 }
 

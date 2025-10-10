@@ -86,7 +86,7 @@ class SekolahController extends Controller
 
         } catch (QueryException $e) {
             if($e->getCode() == "23000") {
-                return redirect()->route('sekolah.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di penempatan PKL');
+                return redirect()->route('sekolah.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di data siswa dan data penempatan PKL');
 
             }
         }

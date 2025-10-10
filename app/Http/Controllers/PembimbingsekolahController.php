@@ -89,10 +89,13 @@ class PembimbingsekolahController extends Controller
         $data = Pembimbingsekolah::findOrFail($id);
         $data->delete();
         return redirect()->route('pembimbingsekolah.index')->with('success','Data berhasil dihapus');
+
         } catch (QueryException $e) {
             if($e->getCode() == "23000") {
-                return redirect()->route('pembimbingsekolah.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di penempatan pkl');
+                return redirect()->route('pembimbingsekolah.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di data penempatan PKL');
             }
         }
+        }
     }
-}
+    
+

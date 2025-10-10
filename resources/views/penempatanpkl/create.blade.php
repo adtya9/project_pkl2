@@ -24,6 +24,14 @@
         @endforeach
       </select><br>
 
+      Nama Jurusan :
+      <select name = "id_jurusan">
+        <option value=""></option>
+        @foreach($jurusan as $j)
+        <option value="{{$j->id_jurusan}}">{{$j->nama_jurusan}}</option>
+        @endforeach
+      </select><br>
+
       Nama bagian : 
       <select name = "id_bagian">
         <option value = ""></option>

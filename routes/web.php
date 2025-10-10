@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use App\Http\Controllers\BagianpklController;
 use App\Http\Controllers\JurusanController;
@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jurusan;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class JurusanController extends Controller
@@ -75,8 +76,14 @@ class JurusanController extends Controller
      */
     public function destroy(string $id)
     {
+        try {
         $data = Jurusan::findOrFail($id);
         $data->delete();
         return redirect()->route('jurusan.index')->with('succes','Data berhasil dihapus');
+        } catch (QueryException $e) {
+            if($e->getCode() == "23000") {
+                return redirect()->route('jurusan.index')->with('error','Data tidak dapat dihapus! Data ini masih digunakan di data siswa');
+            }
+        }
     }
 }

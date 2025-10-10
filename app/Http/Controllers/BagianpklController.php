@@ -84,7 +84,7 @@ class BagianpklController extends Controller
 
         } catch (QueryException $e) {
             if($e->getCode() == "23000") {
-                return redirect()->route('bagianpkl.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di penempatan PKL');
+                return redirect()->route('bagianpkl.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di data penempatan PKL');
             }
         }
     }

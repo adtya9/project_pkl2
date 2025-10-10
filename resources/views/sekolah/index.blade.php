@@ -6,9 +6,13 @@
         <h1>Data Sekolah</h1>
     
     @if (session('success'))
-    <p style = "color:blue">{{session('success')}}</p>
+    <p style = "color:#e67e22;">{{session('success')}}</p>
     @endif 
 
+    @if (session('error'))
+    <p style = "color:red;">{{session('error')}}</p>
+    @endif
+    
     <a href = "{{ route('sekolah.create') }}">Tambah Data</a>
 
     <table border = "1" cellpadding = "4">
