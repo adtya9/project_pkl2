@@ -39,6 +39,23 @@
             </tr>
 
             <tr>
+                <td>Nama Jurusan :</td>
+                <td>
+                    <select disabled>
+                        @foreach($jurusan as $j)
+                        <option {{ $data->id_jurusan == $s->id_jurusan ? 'selected' : ''}}>
+                            {{$s->nama_jurusan}}</option>
+                            @endforeach
+                    </select>
+                    <input type="hidden" name = "id_sekolah" value = "{{ $data->id_jurusan }}">
+                </td>
+            </tr>
+
+
+
+
+
+            <tr>
                 <td>Nama Bagian PKL :</td>
                 <td>
                     <select disabled>
