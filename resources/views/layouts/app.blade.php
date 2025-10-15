@@ -5,46 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
 
-    <!-- scripts -->    
+    <!-- Tailwind & App -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-[#FFFDF2] text-black">
-    <header class = "bg-black">
-        <div class = "flex justify-between px-6 py-5 mx-auto max-w-7xl items-center">
-            <div class = "flex gap-3 items-center -translate-x-28">
-                <img src = "{{ asset('OIP2.png') }}" class = "h-10 w-auto">
-                <h1 class = "text-xl font-bold text-[#FFFDF2]">Dashboard</h1>
+<body class="font-sans antialiased bg-[#FFFDF2] flex">
+
+    <!-- Sidebar -->
+    <aside class = "w-64 fixed left-0 top-0 bg-black min-h-screen flex flex-col justify-between">
+        
+        <div>
+            <div class="flex items-center gap-3 px-6 py-6 border-b border-[#2a2a2a]">
+                <img src="{{ asset('OIP2.png') }}" alt="Logo" class="h-10 w-auto">
+                <h1 class="text-2xl font-bold text-[#FFFDF2]">PKL</h1>
             </div>
 
-        <nav class = "flex text-base gap-6 translate-x-20 font-medium">
-            @foreach ([ 
-                'jurusan'=>'Jurusan',
-                'sekolah'=>'Sekolah',
-                'bagianpkl'=>'Bagian PKL',
-                'siswa'=>'Siswa',
-                'pembimbingsekolah'=>'Pembimbing Sekolah',
-                'pembimbingpkl'=>'Pembimbing PKL',
-                'penempatanpkl' =>'Penempatan PKL'
-             ] as $route=>$label )
-             <a href = "{{ route("$route.index") }}" class = "text-[#fffdf2] hover:text-[#e0d9c7] transition">{{ $label }}</a>
-             @endforeach
-             <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                @csrf 
-                <button type = "submit" class = "text-[#fffdf2] hover:text-red-400 transiton">Logout</button>
-             </form>
-        </nav>
+            <!-- Navigasi -->
+            <nav class="flex flex-col gap-2 px-6 mt-6">
+                @foreach ([
+                    'jurusan' => 'Jurusan',
+                    'sekolah' => 'Sekolah',
+                    'bagianpkl' => 'Bagian PKL',
+                    'siswa' => 'Siswa', 
+                    'pembimbingsekolah' => 'Pembimbing Sekolah',
+                    'pembimbingpkl' => 'Pembimbing PKL',
+                    'penempatanpkl' => 'Penempatan PKL'
+                ] as $route => $label)
+                    <a href="{{ route("$route.index") }}"
+                        class="text-[#FFFDF2] py-2 px-3 rounded-lg hover:text-[#e0d9c7] transition">
+                        {{ $label }}
+                    </a>
+                @endforeach
+            </nav>
         </div>
-    </header>
 
-    <!-- Konten Halaman -->
-    <main class="max-w-7xl mx-auto py-10 px-6">
+        
+        <form action="{{ route('logout') }}" method="POST" class="px-6 mb-10">
+            @csrf
+            <button type="submit"
+                class="text-[#FFFDF2] py-2 px-3 rounded-lg hover:text-[#e0d9c7] transition">
+                Logout
+            </button>
+        </form>
+    </aside>
+
+    <!-- Konten utama -->
+    <main class="ml-64 w-full px-10 py-12">
         @yield('content')
     </main>
+
 </body>
 </html>

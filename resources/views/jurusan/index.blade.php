@@ -41,7 +41,7 @@
                             onsubmit="return confirm('apakah anda yakin hapus data ini?')">
                         @csrf 
                     @method('DELETE')
-                <button type = "submit" class = "px-3 py-1 rounded-lg text-[#fffdf2] bg-black">Hapus</button>
+                <button type = "submit" class = "px-3 py-1 rounded-lg text-[#fffdf2] bg-red-600">Hapus</button>
             </form> 
                         </td>
                     </tr>
