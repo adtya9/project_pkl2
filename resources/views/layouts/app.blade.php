@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,12 +22,13 @@
         <div>
             <div class="flex items-center gap-3 px-6 py-6 border-b border-[#2a2a2a]">
                 <img src="{{ asset('OIP2.png') }}" alt="Logo" class="h-10 w-auto">
-                <h1 class="text-2xl font-bold text-[#FFFDF2]">PKL</h1>
+                <h1 class="text-xl font-bold text-[#FFFDF2]">PKL</h1>
             </div>
 
             <!-- Navigasi -->
             <nav class="flex flex-col gap-2 px-6 mt-6">
                 @foreach ([
+                    'dashboard'=>'Dashboard',
                     'jurusan' => 'Jurusan',
                     'sekolah' => 'Sekolah',
                     'bagianpkl' => 'Bagian PKL',
@@ -36,7 +37,7 @@
                     'pembimbingpkl' => 'Pembimbing PKL',
                     'penempatanpkl' => 'Penempatan PKL'
                 ] as $route => $label)
-                    <a href="{{ route("$route.index") }}"
+                     <a href="{{ route($route == 'dashboard' ? 'dashboard' : "$route.index") }}"
                         class="text-[#FFFDF2] py-2 px-3 rounded-lg hover:text-[#e0d9c7] transition">
                         {{ $label }}
                     </a>
