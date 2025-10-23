@@ -32,7 +32,7 @@
         <div class = "bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition border border-gray-100">
                 <h3 class = "text-red-500 font-semibold text-xl mb-4">Informasi Website</h3>
                 <ul class = "list-disc list-inside space-y-1 text-gray-500 text-sm">
-                        <li>Gunakan menu di samping untuk : </li>
+                        <p>Gunakan menu di samping untuk : </p>
                         <li>Menambah data PKL</li>
                         <li>Mengedit data PKL</li>
                         <li>Menghapus data PKL</li>

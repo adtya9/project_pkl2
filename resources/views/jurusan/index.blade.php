@@ -38,12 +38,12 @@
                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
                         <td class="px-4 py-2">{{ $j->nama_jurusan }}</td>
                         <td class="px-4 py-2">
-                            <a href="{{ route('jurusan.edit', $j->id_jurusan) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-200">Edit</a>
+                            <a href="{{ route('jurusan.edit', $j->id_jurusan) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-300">Edit</a>
                             <form action="{{ route('jurusan.destroy', $j->id_jurusan) }}" method="POST" class="inline-block" 
                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                 @csrf 
                                 @method('DELETE')
-                                <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-200">Hapus</button>
+                                <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-300">Hapus</button>
                             </form>
                         </td>
                     </tr>
