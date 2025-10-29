@@ -66,6 +66,9 @@ class SiswaController extends Controller
         $data = Siswa::findOrFail($id);
         $jurusan = Jurusan::all();
         $sekolah = Sekolah::all();
+        if (!$jurusan) {
+        return redirect()->route('jurusan.index')->with('error', 'Data tidak ditemukan.');
+    }
         return view('siswa.edit', compact('data','jurusan','sekolah'));
     }
 

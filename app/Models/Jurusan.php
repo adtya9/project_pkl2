@@ -10,4 +10,10 @@ class Jurusan extends Model
     protected $primaryKey = "id_jurusan";   
     public $timestamps = false;
     protected $fillable = ['nama_jurusan']; 
+
+    public function siswa()
+{
+    return $this->hasMany(Siswa::class, 'id_jurusan', 'id_jurusan');
+}
+
 }

@@ -36,8 +36,8 @@
             <td>{{ $w->email }}</td>
             <td>{{ $w->nomor_telepon }}</td>
             <td>{{ $w->jenis_kelamin }}</td>
-            <td>{{ $w->sekolah->nama_sekolah }}</td>
-            <td>{{ $w->jurusan->nama_jurusan }}</td>
+            <td>{{ $w->sekolah->nama_sekolah ?? '-' }}</td>
+            <td>{{ $w->jurusan->nama_jurusan ?? '-' }}</td>
             <td>
                 <a href="{{ route('siswa.edit', $w->id_siswa) }}">Edit</a>
                 <form action="{{ route('siswa.destroy', $w->id_siswa) }}" method="POST" style="display:inline" onsubmit="return confirm('Yakin hapus data ini?')">

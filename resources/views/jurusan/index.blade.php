@@ -10,11 +10,11 @@
         <h1 class="text-4xl mb-6 text-center text-black font-bold -translate-x-20">Data Jurusan</h1>
 
         @if(session('success'))
-            <p style="color:blue;">{{ session('success') }}</p>
+            <p id="alert-message" class = "text-blue-600 mb-4 text-xl">{{ session('success') }}</p>
         @endif
      
         @if(session('error'))
-            <p style="color:red;">{{ session('error') }}</p>
+            <p id="alert-message" class = "text-red-500 mb-4">{{ session('error') }}</p>
         @endif
 
         <div class="flex justify-between mb-4">
@@ -57,4 +57,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById('alert-message');
+        if (alert) {
+            alert.style.transition = "opacity 0.5s";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        }
+        }, 3000);
+</script>
+
 @endsection

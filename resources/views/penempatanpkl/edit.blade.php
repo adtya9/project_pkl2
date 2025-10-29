@@ -43,11 +43,11 @@
                 <td>
                     <select disabled>
                         @foreach($jurusan as $j)
-                        <option {{ $data->id_jurusan == $s->id_jurusan ? 'selected' : ''}}>
-                            {{$s->nama_jurusan}}</option>
+                        <option {{ $data->id_jurusan == $j->id_jurusan ? 'selected' : ''}}>
+                            {{$j->nama_jurusan}}</option>
                             @endforeach
                     </select>
-                    <input type="hidden" name = "id_sekolah" value = "{{ $data->id_jurusan }}">
+                    <input type="hidden" name = "id_jurusan" value = "{{ $data->id_jurusan }}">
                 </td>
             </tr>
 
