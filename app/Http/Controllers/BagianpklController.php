@@ -65,10 +65,9 @@ class BagianpklController extends Controller
             'nama_bagian'=>'required'
         ]);
 
-        $data = Bagianpkl::findOrFail($id);
+        $data = Bagianpkl::findorFail($id);
         $data->update($request->all());
         return redirect()->route('bagianpkl.index')->with('success','Data berhasil diubah');
-
 
     }
 

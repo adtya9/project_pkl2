@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Tambah Data Jurusan')
+@section('title','Edit Data Jurusan')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
     <div class = "bg-white rounded-lg p-8 border border-gray-400">
 
-        <h1 class = "text-2xl font-bold mb-6">Tambah Data Jurusan</h1>
+        <h1 class = "text-2xl font-bold mb-6">Edit Data Jurusan</h1>
 
         <form action = "{{ route('jurusan.update', $data->id_jurusan) }}" method="POST" class = "mt-6">
             @csrf

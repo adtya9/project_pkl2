@@ -1,42 +1,72 @@
-    <html>
-        <head>
-            <title>data bagian pkl</title>
-        </head>
-        <body>
-            <h1>Data Bagian PKL</h1>
+@extends('layouts.app')
 
-            @if(session('success'))
-            <p style = "color:blue;">{{session('success')}}</p>
-            @endif
+@section('title', 'Bagian PKL')
 
-            @if(session('error'))
-            <p style = "color:red;">{{session('error')}}</p>
-            @endif
+@section('content')
 
-            <a href = "{{ route('bagianpkl.create') }}">Tambah Data</a>
+<div class="min-h-screen bg-[#FFFDF2] px-6 py-10 ml-6">
 
-            <table border = "1" cellpadding = "3">
-                <tr>
-                    <th>No</th>
-                    <th>Bagian PKL</th>
-                    <th>Aksi</th>
-                </tr>
+    <div class="max-w-6xl mx-auto"> 
+        <h1 class="text-3xl mb-6 text-center text-black font-bold -translate-x-16">Data Bagian PKL</h1>
 
-                @foreach($data as $b)
-                <tr>
-                    <td>{{ $loop->iteration}}</td>
-                    <td>{{ $b->nama_bagian}}</td>
-                    <td>
-                        <a href = "{{ route('bagianpkl.edit', $b->id_bagian) }}">Edit</a>
-                        <form action = "{{ route('bagianpkl.destroy', $b->id_bagian) }}" method = "POST" class = "d-inline"
-                        onsubmit = "return confirm ('apakah anda yakin hapus data ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type = "submit">Hapus</button>
-                    </form>
-                    </td>
-                </tr>
-                @endforeach
+    <div class = "flex justify-between items-center mb-4">
+        <a href="{{ route('bagianpkl.create') }}" class="px-4 py-2 rounded-lg text-[#fffdf2] bg-black  hover:scale-105 transition-all duration-200">Tambah Data</a>
+        <div class = "mr-20">
+        @if(session('success'))
+            <p id="alert-message" class = "text-blue-600 text-xl">{{ session('success') }}</p>
+        @endif
+     
+        @if(session('error'))   
+            <p id="alert-message" class = "text-red-500 mb-4">{{ session('error') }}</p>
+        @endif
+    </div>
+    </div>
+
+        <div class="overflow-x-auto rounded-lg shadow-md bg-white">
+            <table class="w-full text-center border-collapse">
+                <thead class="text-[#fffdf2] bg-black">
+                    <tr>
+                        <th class="px-6 py-2">No</th>
+                        <th class="px-10 py-2">Nama Bagian PKL</th>
+                        <th class="px-10 py-2">Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($data as $j)
+                    <tr class="border-b">
+                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-2">{{ $j->nama_bagian }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ route('bagianpkl.edit', $j->id_bagian) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-300 text-sm">Edit</a>
+                            <form action="{{ route('bagianpkl.destroy', $j->id_bagian) }}" method="POST" class="inline-block" 
+                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                @csrf 
+                                @method('DELETE')
+                                <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-300 text-sm">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach 
+                </tbody>
             </table>
-        </body>
-    </html>
+        </div>
+
+        <div class="mt-6 flex justify-center">
+            {{ $data->links('pagination.tailwind') }}
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById('alert-message');
+        if (alert) {
+            alert.style.transition = "opacity 0.5s";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        }
+        }, 3000);
+</script>
+
+@endsection
