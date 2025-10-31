@@ -16,8 +16,8 @@
 
             <table cellpadding = "8">
                 <tr>
-                    <td class = "pr-4">Nama Pembimbing PKL : </td>
-                    <td><input type = "text" name = "nama_pembimbing_pkl" value = "{{ $data->nama_pembimbing_pkl }}" 
+                    <td class = "pr-4">Nama Pembimbing Sekolah: </td>
+                    <td><input type = "text" name = "nama_pembimbing_sekolah" value = "{{ $data->nama_pembimbing_sekolah }}" 
                         class = "h-[32px] rounded w-[230px] border border-gray-400 px-2 text-[15px]"></td>
                 </tr>
 
@@ -37,7 +37,7 @@
 
                 <tr>
                     <td colspan="2" class = "pt-4">
-                        <a href = "{{ route('penempatanpkl.index') }}" class = "text-red-500 mr-3 hover:underline">Kembali</a>
+                        <a href = "{{ route('pembimbingpkl.index') }}" class = "text-red-500 mr-3 hover:underline">Kembali</a>
                         <button type = "submit" class = "bg-black rounded px-4 py-2 text-[#fffdf2] hover:bg-gray-800">Simpan    
                         </button>
 

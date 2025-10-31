@@ -13,11 +13,11 @@
         <a href="{{ route('bagianpkl.create') }}" class="px-4 py-2 rounded-lg text-[#fffdf2] bg-black  hover:scale-105 transition-all duration-200">Tambah Data</a>
         <div class = "mr-20">
         @if(session('success'))
-            <p id="alert-message" class = "text-blue-600 text-xl">{{ session('success') }}</p>
+            <p id="alert-message" class = "text-blue-500 text-xl">{{ session('success') }}</p>
         @endif
      
         @if(session('error'))   
-            <p id="alert-message" class = "text-red-500 mb-4">{{ session('error') }}</p>
+            <p id="alert-message" class = "text-red-500">{{ session('error') }}</p>
         @endif
     </div>
     </div>

@@ -1,67 +1,106 @@
-<html>
-  <head>
-    <title>data penempatan pkl</title>
-  </head>
-  <body>
-    <h1>Tambah Data</h1>
+@extends('layouts.app')
 
-    <form action = "{{ route('penempatanpkl.store') }}" method = "POST">
-      @csrf
+@section('title','Tambah Data Penempatan PKL')
 
-      Nama Siswa : 
-      <select name = "id_siswa">
-        <option value = ""></option>
-        @foreach($siswa as $s)
-        <option value = "{{$s->id_siswa}}">{{$s->nama}}</option>
-        @endforeach
-      </select><br>
+@section('content')
 
-      Nama Sekolah :
-      <select name = "id_sekolah">
-        <option value=""></option>
-        @foreach($sekolah as $s)
-        <option value="{{$s->id_sekolah}}">{{$s->nama_sekolah}}</option>
-        @endforeach
-      </select><br>
+<div class = "bg-[#fffdf2] min-h-screen flex items-start justify-center">
 
-      Nama Jurusan :
-      <select name = "id_jurusan">
-        <option value=""></option>
-        @foreach($jurusan as $j)
-        <option value="{{$j->id_jurusan}}">{{$j->nama_jurusan}}</option>
-        @endforeach
-      </select><br>
+    <div class = "bg-white rounded-lg p-8 border border-gray-400">
 
-      Nama bagian : 
-      <select name = "id_bagian">
-        <option value = ""></option>
-        @foreach($bagianpkl as $b)
-        <option value = "{{$b->id_bagian}}">{{$b->nama_bagian}}</option>
-        @endforeach
-      </select><br>
-      
+        <h1 class = "text-2xl font-bold mb-6">Tambah Data Penempatan PKL</h1>
 
-      Nama pembimbing sekolah : 
-      <select name = "id_pembimbing_sekolah">
-        <option value = ""></option>
-        @foreach($pembimbingsekolah as $ps)
-        <option value = "{{$ps->id_pembimbing_sekolah}}">{{$ps->nama_pembimbing_sekolah}}</option>
-        @endforeach
-      </select><br>
-      
-      Nama pembimbing pkl : 
-      <select name = "id_pembimbing_pkl">
-        <option value = ""></option>
-        @foreach($pembimbingpkl as $pp)
-        <option value = "{{$pp->id_pembimbing_pkl}}">{{$pp->nama_pembimbing_pkl}}</option>
-        @endforeach
-      </select><br>
+        <form action = "{{ route('penempatanpkl.store') }}" method="POST" class = "mt-6">
+            @csrf
 
-      Tanggal mulai : <input type = "date" name = "tanggal_mulai"><br>
-      Tanggal selesai : <input type = "date" name = "tanggal_selesai"><br>  
+            <table cellpadding = "8">
+                <tr>
+                  <td class = "pr-4">Nama Siswa : </td>
+                  <td>
+                    <select name = "id_siswa" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
+                      @foreach ($siswa as $s )
+                      <option value = "{{ $s->id_siswa }}">{{ $s->nama }}</option>
+                      @endforeach
+                    </select>
+                  </td>
+                </tr>
+                
+                <tr>
+                <td class = "pr-4">Nama Sekolah : </td>
+                <td>
+                    <select name="id_sekolah" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
+                        @foreach($sekolah as $s)
+                            <option value="{{ $s->id_sekolah }}">{{ $s->nama_sekolah }}</option>
+                        @endforeach
+                    </select>
+                </td>
+            </tr>
 
-      <button type = "submit">Simpan</button>
-      <a href = "{{ route('penempatanpkl.index') }}">Kembali</a>
-    </form>
-  </body>
-</html>
+            <tr>
+              <td class = "pr-4">Nama Jurusan : </td>
+              <td>
+                <select name = "id_jurusan" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
+                  @foreach ($jurusan as $j)
+                  <option value = "{{ $j->id_jurusan }}">{{ $j->nama_jurusan }}</option>
+                  @endforeach
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class = "pr-4">Nama Bagian PKL : </td>
+              <td>
+                <select name = "id_bagian" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
+                  @foreach ($bagianpkl as $j)
+                  <option value = "{{ $j->id_bagian }}">{{ $j->nama_bagian }}</option>
+                  @endforeach
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class = "pr-4">Nama Pembimbing Sekolah : </td>
+              <td>
+                <select name = "id_pembimbing_sekolah" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
+                  @foreach ($pembimbingsekolah as $j)
+                  <option value = "{{ $j->id_pembimbing_sekolah }}">{{ $j->nama_pembimbing_sekolah }}</option>
+                  @endforeach
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td class = "pr-4">Nama Pembimbing PKL : </td>
+              <td>
+                <select name = "id_pembimbing_pkl" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
+                  @foreach ($pembimbingpkl as $j)
+                  <option value = "{{ $j->id_pembimbing_pkl }}">{{ $j->nama_pembimbing_pkl }}</option>
+                  @endforeach
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+                    <td class = "pr-4">Tanggal Mulai: </td>
+                    <td><input type = "date" name = "tanggal_mulai" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2
+                        text-[15px]"></td>
+            </tr>
+
+            <tr>
+                    <td class = "pr-4">Tanggal Selesai : </td>
+                    <td><input type = "date" name = "tanggal_selesai" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2
+                        text-[15px]"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class = "pt-4">
+                        <a href = "{{ route('penempatanpkl.index') }}" class = "text-red-500 mr-3 hover:underline">Kembali</a>
+                        <button type = "submit" class = "bg-black rounded px-4 py-2 text-[#fffdf2] hover:bg-gray-800">Simpan
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+@endsection

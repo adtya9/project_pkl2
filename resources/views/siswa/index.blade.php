@@ -1,53 +1,84 @@
-<html>
-<head>
-    <title>Data Siswa</title>
-</head>
-<body>
-    <h1>Data Siswa</h1>
+@extends('layouts.app')
 
-    @if(session('success'))
-        <p style="color:blue;">{{ session('success') }}</p>
-    @endif
+@section('title', 'Siswa')
 
-    @if(session('error'))
-    <p style="color:red;">{{ session('error') }}</p>
-    @endif
-    
-    <a href="{{ route('siswa.create') }}">Tambah Data</a>
+@section('content')
 
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>No</th>
-            <th>NIS</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Nomor Telepon</th>
-            <th>Jenis Kelamin</th>
-            <th>Sekolah</th>
-            <th>Jurusan</th>
-            <th>Aksi</th>
-        </tr>
+<div class="min-h-screen bg-[#FFFDF2] px-6 py-10 ml-6">
 
-        @foreach($data as $w)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $w->nis }}</td>
-            <td>{{ $w->nama }}</td>
-            <td>{{ $w->email }}</td>
-            <td>{{ $w->nomor_telepon }}</td>
-            <td>{{ $w->jenis_kelamin }}</td>
-            <td>{{ $w->sekolah->nama_sekolah ?? '-' }}</td>
-            <td>{{ $w->jurusan->nama_jurusan ?? '-' }}</td>
-            <td>
-                <a href="{{ route('siswa.edit', $w->id_siswa) }}">Edit</a>
-                <form action="{{ route('siswa.destroy', $w->id_siswa) }}" method="POST" style="display:inline" onsubmit="return confirm('Yakin hapus data ini?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Hapus</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </table>
-</body>
-</html>
+    <div class="max-w-6xl mx-auto"> 
+        <h1 class="text-3xl mb-6 text-center text-black font-bold -translate-x-10">Data Siswa</h1>
+
+    <div class = "flex justify-between items-center mb-4">
+        <a href="{{ route('siswa.create') }}" class="px-4 py-2 rounded-lg text-[#fffdf2] bg-black  hover:scale-105 transition-all duration-200">Tambah Data</a>
+        <div class = "mr-20">
+        @if(session('success'))
+            <p id="alert-message" class = "text-blue-500 text-xl">{{ session('success') }}</p>
+        @endif
+     
+        @if(session('error'))   
+            <p id="alert-message" class = "text-red-500">{{ session('error') }}</p>
+        @endif
+    </div>
+    </div>
+
+        <div class="overflow-x-auto rounded-lg shadow-md bg-white">
+            <table class="w-full  text-center border-collapse">
+                <thead class="text-[#fffdf2] bg-black">
+                    <tr class = "whitespace-nowrap">
+                        <th class="px-6 py-2">No</th>
+                        <th class="px-10 py-2">Nis</th>
+                        <th class="px-10 py-2">Nama Siswa</th>
+                        <th class="px-10 py-2">Email</th>
+                        <th class="px-10 py-2">Nomor Telepon</th>
+                        <th class = "px-10 py-2">Jenis Kelamin</th>
+                        <th class = "px-10 py-2">Nama Sekolah</th>
+                        <th class = "px-10 py-2">Nama Jurusan</th>
+                        <th class="px-10 py-2">Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($data as $j)
+                    <tr class="border-b">
+                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-2">{{ $j->nis }}</td>
+                        <td class="px-4 py-2">{{ $j->nama }}</td>
+                        <td class = "px-4 py-2">{{ $j->email }}</td>
+                        <td class="px-4 py-2">{{ $j->nomor_telepon }}</td>
+                        <td class = "px-4 py-2">{{ $j->jenis_kelamin }}</td>
+                        <td class="px-4 py-2">{{ $j->sekolah->nama_sekolah ?? '-' }}</td>
+                        <td class = "px-4 py-2">{{ $j->jurusan->nama_jurusan ?? '-' }}</td>
+                        <td class="px-4 py-2">
+                            <div class = "flex justify-between">
+                            <a href="{{ route('siswa.edit', $j->id_siswa) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-300 text-sm">Edit</a>
+                            <form action="{{ route('siswa.destroy', $j->id_siswa) }}" method="POST" class="inline-block" 
+                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                @csrf 
+                                @method('DELETE')
+                                <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-300 text-sm">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach 
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6 flex justify-center">
+            {{ $data->links('pagination.tailwind') }}
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById('alert-message');
+        if (alert) {
+            alert.style.transition = "opacity 0.5s";
+            alert.style.opacity = "0";
+        }
+        }, 3000);
+</script>
+
+@endsection

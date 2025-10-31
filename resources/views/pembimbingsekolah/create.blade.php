@@ -32,15 +32,16 @@
                         text-[15px]"></td>
                 </tr>
 
-                <tr></tr>
-                <td>Nama Sekolah :</td>
                 <tr>
-                    <select name="id_sekolah">
+                <td class = "pr-4">Nama Sekolah : </td>
+                <td>
+                    <select name="id_sekolah" class = "h-[36px] rounded w-[230px] border border-gray-400 px-2 text-[15px]">
                         @foreach($sekolah as $s)
                             <option value="{{ $s->id_sekolah }}">{{ $s->nama_sekolah }}</option>
                         @endforeach
                     </select>
-                </tr>
+                </td>
+            </tr>
 
                 <tr>
                     <td colspan="2" class = "pt-4">
