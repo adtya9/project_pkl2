@@ -10,19 +10,19 @@
 
         <h1 class = "text-2xl font-bold mb-6">Tambah Data Sekolah</h1>
 
-        <form action = "{{ route('sekolah.store') }}" method="POST" class = "mt-6">
+        <form id = "formTambahsekolah" action = "{{ route('sekolah.store') }}" method="POST" class = "mt-6">
             @csrf
 
             <table cellpadding = "8">
                 <tr>
                     <td class = "pr-4">Nama Sekolah : </td>
-                    <td><input type = "text" name = "nama_sekolah" class = "h-[32px] rounded w-[230px] border border-gray-400 px-2
+                    <td><input type = "text" id = "nama_sekolah" name = "nama_sekolah" class = "h-[32px] rounded w-[230px] border border-gray-400 px-2
                         text-[15px]"></td>
                 </tr>
 
                 <tr>
                     <td class = "pr-4">Alamat Sekolah : </td>
-                    <td><input type = "text" name = "alamat_sekolah" class = "h-[32px] rounded w-[230px] border border-gray-400 px-2
+                    <td><input type = "text" id = "alamat_sekolah" name = "alamat_sekolah" class = "h-[32px] rounded w-[230px] border border-gray-400 px-2
                         text-[15px]"></td>
                 </tr>
 
@@ -40,4 +40,45 @@
         </form>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+   
+    $('#formTambahsekolah').on('submit', function(e) {
+    let nama = $('#nama_sekolah').val().trim();
+    let alamat = $('#alamat_sekolah').val().trim();
+   
+    if (nama === '' || alamat === '') {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Kolom belum diisi!',
+            text: '',
+        });
+        return;
+    }
+});
+
+
+  
+    @if (session('success'))
+    Swal.fire(
+        'Berhasil',
+        '{{ session('success') }}',
+        'success'
+    );
+    @endif
+
+   
+    @if (session('error'))
+    Swal.fire(
+        'Gagal',
+        '{{ session('error') }}',
+        'error'
+    );
+    @endif
+});
+</script>
+
+
 @endsection

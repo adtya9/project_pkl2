@@ -28,9 +28,71 @@
         @endforeach
 </div>
 
+ <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+
+    <!-- Penempatan Terbaru -->
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+    <h3 class="text-gray-500 text-xl mb-4">Penempatan Terbaru</h3>
+
+    @if($penempatanTerbaru->isEmpty())
+        <p class="text-sm text-red-600 italic">Belum ada penempatan terbaru.</p>
+    @else
+        <ul class="divide-y divide-gray-200">
+            @foreach($penempatanTerbaru as $p)
+            <li class="py-3 flex justify-between">
+                
+                <!-- Bagian kiri -->
+                <div>
+                    <p class="font-semibold">{{ $p->siswa->nama ?? '-' }}</p>
+                    <p class="text-gray-500 text-xs">
+                        {{ $p->sekolah->nama_sekolah ?? '-' }} — {{ $p->bagianpkl->nama_bagian ?? '-' }}
+                    </p>
+                </div>
+
+                <!-- Bagian kanan (tanggal) -->
+                <div class="text-right text-xs text-red-600">
+                    <p><span class="font-medium">Mulai:</span> {{ $p->tanggal_mulai }}</p>
+                    <p class="mt-1"><span class="font-medium">Selesai:</span> {{ $p->tanggal_selesai }}</p>
+                </div>
+            </li>
+            @endforeach
+        </ul>
+    @endif
+</div>
+
+
+    <!-- Penempatan Akan Berakhir -->
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+        <h3 class="text-gray-600 text-xl mb-4">Penempatan Akan Berakhir (30 Hari)</h3>
+
+        @if($penempatanAkanBerakhir->isEmpty())
+            <p class="text-sm text-red-600 italic">Tidak ada penempatan yang akan berakhir dalam 30 hari ke depan.</p>
+        @else
+            <ul class="divide-y divide-gray-200">
+                @foreach($penempatanAkanBerakhir as $p)
+                <li class="py-3 flex justify-between">
+                    <div>
+                        <p class="font-semibold">{{ $p->siswa->nama ?? '-' }}</p>
+                        <p class="text-gray-500 text-xs">
+                            {{ $p->sekolah->nama_sekolah ?? '-' }} — {{ $p->bagianpkl->nama_bagian ?? '-' }}
+                        </p>
+                    </div>
+
+                    <span class="text-xs text-red-600 font-semibold">
+                        Berakhir: {{ $p->tanggal_selesai }}
+                    </span>
+                </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+
+</div>
+
+
 <div class = "grid grid-cols-1:lg grid-cols-2 gap-8">
         <div class = "bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition border border-gray-100">
-                <h3 class = "text-red-500 font-semibold text-xl mb-4">Informasi Website</h3>
+                <h3 class = "text-gray-600 text-xl mb-4">Informasi Website</h3>
                 <ul class = "list-disc list-inside space-y-1 text-gray-500 text-sm">
                         <p>Gunakan menu di samping untuk : </p>
                         <li>Menambah data PKL</li>
@@ -40,11 +102,14 @@
         </div>
 
         <div class = "bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-lg transition">
-                <h3 class = "text-red-500 font-semibold text-xl mb-4">Tujuan Website</h3>
+                <h3 class = "text-gray-700 text-xl mb-4">Tujuan Website</h3>
                 <p class = "text-sm text-gray-500">Website ini dibuat untuk mempermudah pendataan siswa siswi PKL Universitas
                         Widyatama
                 </p>
         </div>
 </div>
+
+
+   
 </div>
 @endsection

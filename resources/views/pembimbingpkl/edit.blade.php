@@ -10,26 +10,26 @@
 
         <h1 class = "text-2xl font-bold mb-6">Edit Data Pembimbing PKL</h1>
 
-        <form action = "{{ route('pembimbingpkl.update', $data->id_pembimbing_pkl) }}" method="POST" class = "mt-6">
+        <form id = "formEditpembimbing1" action = "{{ route('pembimbingpkl.update', $data->id_pembimbing_pkl) }}" method="POST" class = "mt-6">
             @csrf
             @method('PUT')
 
             <table cellpadding = "8">
                 <tr>
-                    <td class = "pr-4">Nama Pembimbing Sekolah: </td>
-                    <td><input type = "text" name = "nama_pembimbing_sekolah" value = "{{ $data->nama_pembimbing_sekolah }}" 
+                    <td class = "pr-4">Nama Pembimbing PKL: </td>
+                    <td><input type = "text" id = "nama_pembimbing_pkl"name = "nama_pembimbing_pkl" value = "{{ $data->nama_pembimbing_pkl }}" 
                         class = "h-[32px] rounded w-[230px] border border-gray-400 px-2 text-[15px]"></td>
                 </tr>
 
                 <tr>
                     <td class = "pr-4">Email : </td>
-                    <td><input type = "text" name="email" value = "{{ $data->email }}"
+                    <td><input type = "email" id = "email" name="email" value = "{{ $data->email }}"
                     class = "h-[32px] rounded w-[230px] border border-gray-400 px-2 text-[15px]"></td>
                 </tr>
 
                 <tr>
                     <td class = "pr-4">Nomor Telepon : </td>
-                    <td><input type = "text" name = "nomor_telepon" value = "{{ $data->nomor_telepon}}" 
+                    <td><input type = "text" id = "nomor_telepon" name = "nomor_telepon" value = "{{ $data->nomor_telepon}}" 
                         class = "h-[32px] rounded w-[230px] border border-gray-400 px-2 text-[15px]"></td>
                 </tr>
 
@@ -47,4 +47,47 @@
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(document).ready(function() {
+   
+    $('#formEditpembimbing1').on('submit', function(e) {
+    let nama = $('#nama_pembimbing_pkl').val().trim();
+    let email = $('#email').val().trim();
+    let telp = $('#nomor_telepon').val().trim();
+
+    if (nama === '' || email === '' || telp === '') {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Kolom belum diisi!',
+            text: '',
+        });
+        return;
+    }
+});
+
+
+  
+    @if (session('success'))
+    Swal.fire(
+        'Berhasil',
+        '{{ session('success') }}',
+        'success'
+    );
+    @endif
+
+   
+    @if (session('error'))
+    Swal.fire(
+        'Gagal',
+        '{{ session('error') }}',
+        'error'
+    );
+    @endif
+});
+</script>
 @endsection

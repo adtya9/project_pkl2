@@ -18,7 +18,7 @@ class PenempatanpklController extends Controller
      */
     public function index()
     {
-        $penempatan = Penempatanpkl::with(['siswa','sekolah','jurusan','bagianpkl','pembimbing_sekolah','pembimbing_pkl'])
+        $penempatan = Penempatanpkl::with(['siswa','sekolah','jurusan','bagianpkl','pembimbingsekolah','pembimbingpkl'])
                       ->latest('tanggal_mulai')->paginate(10);
         return view('penempatanpkl.index', compact('penempatan'));              
     }
@@ -71,10 +71,14 @@ class PenempatanpklController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+   public function show($id)
+{
+    $penempatan = Penempatanpkl::with(['siswa', 'sekolah', 'jurusan', 'bagianpkl', 'pembimbingsekolah', 'pembimbingpkl'])
+                    ->findOrFail($id);
+
+    return view('penempatanpkl.show', compact('penempatan'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
@@ -127,7 +131,7 @@ class PenempatanpklController extends Controller
 
      $data->update($request->all());
      
-    return redirect()->route('penempatanpkl.index')->with('success', 'Data berhasil diubah');
+    return redirect()->route('penempatanpkl.show', $id)->with('success', 'Data berhasil diubah');
 }
 
 

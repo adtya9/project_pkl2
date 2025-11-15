@@ -78,18 +78,18 @@ class PembimbingpklController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        try {
-        $data = Pembimbingpkl::findOrFail($id);
-        $data->delete();
-        return redirect()->route('pembimbingpkl.index')->with('success','Data berhasil dihapus');
+{
+    $data = Pembimbingpkl::findOrFail($id);
 
-        } catch (QueryException $e) {
-            if($e->getCode() == "23000") {
-                return redirect()->route('pembimbingpkl.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di data penempatan PKL');
-            }
-        }
-            }
-        }
-    
+    if ($data->penempatanpkl()->exists()) {
+        return redirect()->route('pembimbingpkl.index')
+            ->with('error', 'Data tidak dapat dihapus! Data ini masih digunakan di data penempatan PKL.');
+    }
+
+    $data->delete();
+
+    return redirect()->route('pembimbingpkl.index')
+        ->with('success', 'Data berhasil dihapus.');
+}
+}
 

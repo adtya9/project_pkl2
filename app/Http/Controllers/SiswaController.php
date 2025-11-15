@@ -41,7 +41,7 @@ class SiswaController extends Controller
             'nama'=>'required',
             'email'=>'required',
             'nomor_telepon'=>'required',
-            'jenis_kelamin'=>'required',
+            'jenis_kelamin'=>'required|in:L,P',
             'id_jurusan'=>'required|exists:jurusan,id_jurusan',
             'id_sekolah'=>'required|exists:sekolah,id_sekolah'
         ]);
@@ -53,9 +53,13 @@ class SiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+      
+   public function show($id)
+   {
+    $data = Siswa::with(['sekolah', 'jurusan'])
+                    ->findOrFail($id);
+
+    return view('siswa.show', compact('data'));
     }
 
     /**
@@ -82,7 +86,7 @@ class SiswaController extends Controller
             'nama'=>'required',
             'email'=>'required',
             'nomor_telepon'=>'required',
-            'jenis_kelamin'=>'required',
+            'jenis_kelamin'=>'required|in:L,P',
             'id_jurusan'=>'required|exists:jurusan,id_jurusan',
             'id_sekolah'=>'required|exists:sekolah,id_sekolah'
         ]);
@@ -95,18 +99,20 @@ class SiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        try {
-        $data = Siswa::findOrFail($id);
-        $data->delete();
-        return redirect()->route('siswa.index')->with('success','Data berhasil dihapus');
+      public function destroy(string $id)
+{
+    $data = Siswa::findOrFail($id);
 
-        } catch (QueryException $e) {
-            if($e->getCode() == "23000") {
-                return redirect()->route('siswa.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di data penempatan PKL');  
-            }
-        }
-            }
-        }
+    if ($data->penempatanpkl()->exists()) {
+        return redirect()->route('siswa.index')
+            ->with('error', 'Data tidak dapat dihapus! Data ini masih digunakan di data penempatan PKL');
+    }
+
+    $data->delete();
+
+    return redirect()->route('siswa.index')
+        ->with('success', 'Data berhasil dihapus');
+}
+}
+
 

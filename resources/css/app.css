@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-input {
+    @apply border-gray-500 focus:border-black focus:ring-black focus:ring-0;
+}
+
+input, textarea, select {
+    @apply border-gray-500 focus:border-black focus:ring-0 focus:ring-black;
+}
+
+

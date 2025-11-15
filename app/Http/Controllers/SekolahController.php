@@ -3,92 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sekolah;
-use GuzzleHttp\Psr7\Query;
+use App\Models\Siswa;
+use App\Models\PembimbingSekolah;
+use App\Models\Penempatanpkl;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class SekolahController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $data = Sekolah::latest('id_sekolah')->paginate(10);
         return view('sekolah.index', compact('data'));
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('sekolah.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'nama_sekolah'=>'required',
-            'alamat_sekolah'=>'required',
+            'nama_sekolah' => 'required',
+            'alamat_sekolah' => 'required',
         ]);
 
         Sekolah::create($request->all());
-        return redirect()->route('sekolah.index')->with('success','Data berhasil disimpan');
+        return redirect()->route('sekolah.index')->with('success', 'Data berhasil disimpan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = Sekolah::findOrFail($id);
         return view('sekolah.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama_sekolah'=>'required',
-            'alamat_sekolah'=>'required',
+            'nama_sekolah' => 'required',
+            'alamat_sekolah' => 'required',
         ]);
 
         $data = Sekolah::findOrFail($id);
         $data->update($request->all());
-        return redirect()->route('sekolah.index')->with('success','Data berhasil diubah');
-
+        return redirect()->route('sekolah.index')->with('success', 'Data berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
-    {
-        try {
-        $data = Sekolah::findOrFail($id);
-        $data->delete();
-        return redirect()->route('sekolah.index')->with('success','Data berhasil dihapus');
+{
+    $data = Sekolah::findOrFail($id);
 
-        } catch (QueryException $e) {
-            if($e->getCode() == "23000") {
-                return redirect()->route('sekolah.index')->with('error','Data tidak dapat dihapus! data ini masih digunakan di data siswa dan data penempatan PKL');
+  
+    $usedIn = [];
 
-            }
-        }
+    if ($data->siswa()->exists()) {
+        $usedIn[] = 'data siswa';
     }
+
+    if ($data->pembimbingSekolah()->exists()) {
+        $usedIn[] = 'data pembimbing sekolah';
+    }
+
+    if ($data->penempatanpkl()->exists()) {
+        $usedIn[] = 'data penempatan PKL';
+    }
+
+    
+    if (!empty($usedIn)) {
+        
+        $last = array_pop($usedIn);
+        $list = empty($usedIn)
+            ? $last
+            : implode(', ', $usedIn) . ' dan ' . $last;
+
+        return redirect()->route('sekolah.index')
+            ->with('error', "Data tidak dapat dihapus! Data ini masih digunakan di {$list}.");
+    }
+
+ 
+    $data->delete();
+
+    return redirect()->route('sekolah.index')
+        ->with('success', 'Data berhasil dihapus.');
+}
 }

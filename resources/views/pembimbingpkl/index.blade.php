@@ -11,14 +11,6 @@
 
     <div class = "flex justify-between items-center mb-4">
         <a href="{{ route('pembimbingpkl.create') }}" class="px-4 py-2 rounded-lg text-[#fffdf2] bg-black  hover:scale-105 transition-all duration-200">Tambah Data</a>
-        <div class = "mr-20">
-        @if(session('success'))
-            <p id="alert-message" class = "text-blue-500 text-xl">{{ session('success') }}</p>
-        @endif
-     
-        @if(session('error'))   
-            <p id="alert-message" class = "text-red-500">{{ session('error') }}</p>
-        @endif
     </div>
     </div>
 
@@ -43,8 +35,8 @@
                         <td class = "px-4 py-2">{{ $j->nomor_telepon }}</td>
                         <td class="px-4 py-2">
                             <a href="{{ route('pembimbingpkl.edit', $j->id_pembimbing_pkl) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-300 text-sm">Edit</a>
-                            <form action="{{ route('pembimbingpkl.destroy', $j->id_pembimbing_pkl) }}" method="POST" class="inline-block" 
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                            <form action="{{ route('pembimbingpkl.destroy', $j->id_pembimbing_pkl) }}" method="POST" class="inline-block delete-form" 
+                               >
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-300 text-sm">Hapus</button>

@@ -9,5 +9,15 @@ class Pembimbingpkl extends Model
     protected $table = "pembimbing_pkl";
     protected $primaryKey = "id_pembimbing_pkl";
     public $timestamps = false;
-    protected $fillable = ['nama_pembimbing_pkl','email','nomor_telepon'];
+
+    protected $fillable = [
+        'nama_pembimbing_pkl',
+        'email',
+        'nomor_telepon'
+    ];
+
+    public function penempatanpkl()
+    {
+        return $this->hasMany(Penempatanpkl::class, 'id_pembimbing_pkl', 'id_pembimbing_pkl');
+    }
 }

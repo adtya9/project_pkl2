@@ -16,4 +16,9 @@ class Jurusan extends Model
     return $this->hasMany(Siswa::class, 'id_jurusan', 'id_jurusan');
 }
 
+    public function penempatanpkl()
+{
+    return $this->hasMany(Penempatanpkl::class, 'id_jurusan', 'id_jurusan');
+
+}
 }

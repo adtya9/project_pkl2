@@ -11,15 +11,6 @@
 
     <div class = "flex justify-between items-center mb-4">
         <a href="{{ route('penempatanpkl.create') }}" class="px-4 py-2 rounded-lg text-[#fffdf2] bg-black  hover:scale-105 transition-all duration-200">Tambah Data</a>
-        <div class = "mr-20">
-        @if(session('success'))
-            <p id="alert-message" class = "text-blue-500 text-xl">{{ session('success') }}</p>
-        @endif
-     
-        @if(session('error'))   
-            <p id="alert-message" class = "text-red-500">{{ session('error') }}</p>
-        @endif
-    </div>
     </div>
 
         <div class="overflow-x-auto rounded-lg shadow-md bg-white">
@@ -29,10 +20,7 @@
                         <th class="px-6 py-2">No</th>
                         <th class="px-10 py-2">Nama Siswa</th>
                         <th class="px-10 py-2">Nama Sekolah</th>
-                        <th class="px-10 py-2">Nama Jurusan</th>
                         <th class="px-10 py-2">Nama Bagian PKL</th>
-                        <th class = "px-10 py-2">Nama Pembimbing Sekolah</th>
-                        <th class = "px-10 py-2">Nama Pembimbing PKL</th>
                         <th class = "px-10 py-2">Tanggal Mulai</th>
                         <th class = "px-10 py-2">Tanggal Selesai</th>
                         <th class="px-10 py-2">Aksi</th>
@@ -45,18 +33,17 @@
                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
                         <td class="px-4 py-2">{{ $j->siswa->nama ?? '-' }}</td>
                         <td class="px-4 py-2">{{ $j->sekolah->nama_sekolah ?? '-' }}</td>
-                        <td class="px-4 py-2">{{ $j->jurusan->nama_jurusan ?? '-' }}</td>
                         <td class="px-4 py-2">{{ $j->bagianpkl->nama_bagian ?? '-' }}</td>
-                        <td class="px-4 py-2">{{ $j->pembimbing_sekolah->nama_pembimbing_sekolah ?? '-' }}</td>
-                        <td class="px-4 py-2">{{ $j->pembimbing_pkl->nama_pembimbing_pkl ?? '-' }}</td>
                         <td class = "px-4 py-2">{{ $j->tanggal_mulai ?? '-' }}</td>
                         <td class = "px-4 py-2">{{ $j->tanggal_selesai ?? '-' }}</td>
 
                         <td class="px-4 py-2">
-                            <div class="flex justify-center">
-                            <a href="{{ route('penempatanpkl.edit', $j->id_penempatan) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-300 text-sm">Edit</a>
-                            <form action="{{ route('penempatanpkl.destroy', $j->id_penempatan) }}" method="POST" class="inline-block" 
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                             <div class="flex justify-center gap-2">
+                            <a href = "{{ route('penempatanpkl.show', $j->id_penempatan) }}" class = "bg-blue-600
+                                px-2 py-1 rounded-lg text-[#fffdf2] hover:scale-105 transition-all duration-300 text-sm">Detail</a>
+                       
+                            <form action="{{ route('penempatanpkl.destroy', $j->id_penempatan) }}" method="POST" class="inline-block delete-form" 
+                                >
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-300 text-sm">Hapus</button>

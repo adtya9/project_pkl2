@@ -11,15 +11,6 @@
 
     <div class = "flex justify-between items-center mb-4">
         <a href="{{ route('pembimbingsekolah.create') }}" class="px-4 py-2 rounded-lg text-[#fffdf2] bg-black  hover:scale-105 transition-all duration-200">Tambah Data</a>
-        <div class = "mr-20">
-        @if(session('success'))
-            <p id="alert-message" class = "text-blue-500 text-xl">{{ session('success') }}</p>
-        @endif
-     
-        @if(session('error'))   
-            <p id="alert-message" class = "text-red-500">{{ session('error') }}</p>
-        @endif
-    </div>
     </div>
 
         <div class="overflow-x-auto rounded-lg shadow-md bg-white">
@@ -28,9 +19,9 @@
                     <tr>
                         <th class="px-6 py-2">No</th>
                         <th class="px-10 py-2">Nama Pembimbing Sekolah</th>
+                        <th class="px-10 py-2">Nama Sekolah</th>
                         <th class="px-10 py-2">Email</th>
                         <th class="px-10 py-2">Nomor Telepon</th>
-                        <th class="px-10 py-2">Nama Sekolah</th>
                         <th class="px-10 py-2">Aksi</th>
                     </tr>
                 </thead>
@@ -40,13 +31,13 @@
                     <tr class="border-b">
                         <td class="px-4 py-2">{{ $loop->iteration }}</td>
                         <td class="px-4 py-2">{{ $j->nama_pembimbing_sekolah }}</td>
-                        <td class="px-4 py-2">{{ $j->email }}</td>
-                        <td class="px-4 py-2">{{ $j->nomor_telepon }}</td>
                         <td class="px-4 py-2">{{ $j->sekolah->nama_sekolah ?? '-' }}</td>
+                        <td class="px-4 py-2">{{ $j->email }}</td>
+                        <td class="px-4 py-2">{{ $j->nomor_telepon}}</td>
                         <td class="px-4 py-2">
                             <a href="{{ route('pembimbingsekolah.edit', $j->id_pembimbing_sekolah) }}" class="bg-black px-2 py-1 rounded-lg text-[#fffdf2] inline-block hover:scale-105 transition-all duration-300 text-sm">Edit</a>
-                            <form action="{{ route('pembimbingsekolah.destroy', $j->id_pembimbing_sekolah) }}" method="POST" class="inline-block" 
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                            <form action="{{ route('pembimbingsekolah.destroy', $j->id_pembimbing_sekolah) }}" method="POST" class="inline-block delete-form" 
+                                >
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="px-2 py-1 rounded-lg text-[#fffdf2] bg-red-600 hover:scale-105 transition-all duration-300 text-sm">Hapus</button>

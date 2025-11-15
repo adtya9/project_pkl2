@@ -10,4 +10,11 @@ class Bagianpkl extends Model
     protected $primaryKey = "id_bagian";
     public $timestamps = false;
     protected $fillable = ['nama_bagian'];
+
+      public function penempatanpkl()
+{
+    return $this->hasMany(Penempatanpkl::class, 'id_bagian', 'id_bagian');
+}
+
+
 }

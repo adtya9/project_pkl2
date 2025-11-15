@@ -10,7 +10,7 @@
 
         <h1 class = "text-2xl font-bold mb-6">Tambah Data Penempatan PKL</h1>
 
-        <form action = "{{ route('penempatanpkl.store') }}" method="POST" class = "mt-6">
+        <form id = "formTambahpenempatan" action = "{{ route('penempatanpkl.store') }}" method="POST" class = "mt-6">
             @csrf
 
             <table cellpadding = "8">
@@ -82,13 +82,13 @@
 
             <tr>
                     <td class = "pr-4">Tanggal Mulai: </td>
-                    <td><input type = "date" name = "tanggal_mulai" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2
+                    <td><input type = "date" id = "tanggal_mulai" name = "tanggal_mulai" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2
                         text-[15px]"></td>
             </tr>
 
             <tr>
                     <td class = "pr-4">Tanggal Selesai : </td>
-                    <td><input type = "date" name = "tanggal_selesai" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2
+                    <td><input type = "date" id = "tanggal_selesai" name = "tanggal_selesai" class = "h-[38px] rounded w-[230px] border border-gray-400 px-2
                         text-[15px]"></td>
                 </tr>
 
@@ -103,4 +103,46 @@
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(document).ready(function() {
+   
+    $('#formTambahpenempatan').on('submit', function(e) {
+    let tanggal1 = $('#tanggal_mulai').val().trim();
+    let tanggal2 = $('#tanggal_selesai').val().trim();
+
+    if (tanggal1 === '' || tanggal2 === '') {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Kolom belum diisi!',
+            text: '',
+        });
+        return;
+    }
+});
+
+
+  
+    @if (session('success'))
+    Swal.fire(
+        'Berhasil',
+        '{{ session('success') }}',
+        'success'
+    );
+    @endif
+
+   
+    @if (session('error'))
+    Swal.fire(
+        'Gagal',
+        '{{ session('error') }}',
+        'error'
+    );
+    @endif
+});
+</script>
 @endsection

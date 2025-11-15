@@ -74,18 +74,36 @@ class JurusanController extends Controller
     /**
      * Remove the specified resource from storage.
         */
-       public function destroy(string $id)
+     public function destroy(string $id)
 {
     $data = Jurusan::findOrFail($id);
 
+  
+    $usedIn = [];
+
     if ($data->siswa()->exists()) {
-        return redirect()->route('jurusan.index')
-            ->with('error', 'Data tidak dapat dihapus! Data ini masih digunakan di data siswa');
+        $usedIn[] = 'data siswa';
     }
 
+    if ($data->penempatanpkl()->exists()) {
+        $usedIn[] = 'data penempatan PKL';
+    }
+
+    if (!empty($usedIn)) {
+        
+        $last = array_pop($usedIn);
+        $list = empty($usedIn)
+            ? $last
+            : implode(', ', $usedIn) . ' dan ' . $last;
+
+        return redirect()->route('jurusan.index')
+            ->with('error', "Data tidak dapat dihapus! Data ini masih digunakan di {$list}.");
+    }
+
+ 
     $data->delete();
 
     return redirect()->route('jurusan.index')
-        ->with('success', 'Data berhasil dihapus');
+        ->with('success', 'Data berhasil dihapus.');
 }
 }
