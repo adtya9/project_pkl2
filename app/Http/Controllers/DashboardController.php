@@ -40,7 +40,6 @@ $penempatanAkanBerakhir = Penempatanpkl::with(['siswa','sekolah','bagianpkl'])
     ->where('tanggal_selesai', '<=', $limit)
     ->orderBy('tanggal_selesai')
     ->get();
-
         return view('dashboard', compact('data','penempatanTerbaru','penempatanAkanBerakhir'));
     }
 }

@@ -35,13 +35,10 @@
     </div>
 </div>
 
-{{-- Script validasi & alert --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
 $(document).ready(function() {
-    // Validasi form sebelum submit
     $('#formEditBagian').on('submit', function(e) {
         let nama = $('#nama_bagian').val().trim();
         if (nama === '') {
@@ -54,7 +51,6 @@ $(document).ready(function() {
         }
     });
 
-    // Alert dari session (success)
     @if (session('success'))
     Swal.fire(
         'Berhasil',
@@ -63,7 +59,6 @@ $(document).ready(function() {
     );
     @endif
 
-    // Alert dari session (error)
     @if (session('error'))
     Swal.fire(
         'Gagal',

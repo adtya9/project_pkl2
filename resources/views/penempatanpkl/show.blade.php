@@ -6,12 +6,10 @@
 <div class="min-h-screen bg-[#FFFDF2] flex justify-center items-start py-10 px-4">
    <div class="w-[480px] bg-white rounded-lg shadow-md p-6 border border-gray-200">
         
-        <!-- Judul -->
         <div class="text-center mb-6 border-b pb-3">
             <h1 class="text-2xl font-semibold text-gray-800">Detail Data Penempatan PKL</h1>
         </div>
 
-        <!-- Detail Data -->
         <div class="space-y-2 text-[15px]">
             <div class="flex items-center gap-x-6">
                 <span class="text-gray-600 w-36">Nama Siswa:</span>
@@ -47,7 +45,6 @@
             </div>
         </div>
 
-        <!-- Tombol Aksi -->
         <div class="mt-8 flex items-center justify-start gap-4 border-t pt-5">
     <a href="{{ route('penempatanpkl.index') }}" 
        class="text-red-500 hover:text-red-600 text-sm font-medium hover:underline">
